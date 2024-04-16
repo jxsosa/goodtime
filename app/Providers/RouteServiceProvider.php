@@ -18,6 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/dashboard';
+    //public const HOME = '/';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -33,8 +34,12 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('api')
                 ->group(base_path('routes/api.php'));
 
-            Route::middleware('web')
+           Route::middleware('web', 'auth')//le agregue como parametro auth para que siempre me pida login
                 ->group(base_path('routes/web.php'));
+            // se agrego para que el archivo admin.php sea reconocido como controlador
+            Route::middleware('web','auth')
+                ->prefix('admin')
+                ->group(base_path('routes/admin.php'));//
         });
     }
 }
