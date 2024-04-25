@@ -9,6 +9,10 @@ class Movimiento extends Model
 {
     use HasFactory;
 //relacion un a ,ucho inversa
+
+
+protected $guarded=['id','created_at', 'updated_at'];
+
 public function cliente(){
     return $this->belongsTo(Cliente::class);
     

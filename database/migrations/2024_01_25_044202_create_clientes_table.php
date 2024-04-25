@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('email')->unique();
             $table->string('direccion');
-            $table->integer('telefono');
+            $table->string('telefono');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             
             //$table->unsignedBigInteger('user_id');

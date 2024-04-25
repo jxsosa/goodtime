@@ -3,6 +3,10 @@
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\MovimientoController;
 use Illuminate\Support\Facades\Route;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use App\Http\Controllers\Admin\MovimientoController as AdminMovimientoController;
+
+use function Laravel\Prompts\table;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,12 +25,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('admin.home');
 
 
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
+    Route::get('/admin', function () {
         return view('dashboard');
     })->name('dashboard');
+    
 });

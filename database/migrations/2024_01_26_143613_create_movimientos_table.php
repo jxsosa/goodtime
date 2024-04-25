@@ -15,23 +15,14 @@ return new class extends Migration
     {
         Schema::create('movimientos', function (Blueprint $table) {
             $table->id();
-           // $table->double('bs', 10, 2);
+            $table->double('bs', 10, 2);
             $table->double('tasa' , 6, 2);
             $table->double('monto', 10, 2);
-            $table->integer('ref', false,);
-            $table->string('descripcion');
+            $table->integer('ref', false,)->nullable();
+            $table->string('descripcion')->nullable();
             $table->enum('tipo', ['entrada', 'salida'])->default('entrada');
-            $table->date('fecha_entrega');
-            
-                       
-           // $table->unsignedBigInteger('cambio_id');                        
-            //$table->unsignedBigInteger('cuenta_id');
-            //$table->unsignedBigInteger('cliente_id');
-            //$table->unsignedBigInteger('user_id');            
-            //$table->foreing('cambio_id')->references('id')->on('cambios')->onDelete('cascade');
-            //$table->foreing('cuenta_id')->references('id')->on('cuentas')->onDelete('cascade');
-            //$table->foreing('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
-            //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            //$table->enum('cuenta', ['cobrar', 'pagar'])->default('cobrar');
+            $table->date('fecha_entrega')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('cambio_id')->constrained()->onDelete('cascade');
             $table->foreignId('cliente_id')->constrained()->onDelete('cascade');

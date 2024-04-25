@@ -256,7 +256,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => '/',
+    'dashboard_url' => '/admin',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -297,7 +297,7 @@ return [
         [
             'type'         => 'navbar-search',
             'text'         => 'search',
-            'topnav_right' => true,
+            'topnav_right' => false,
         ],
         [
             'type'         => 'fullscreen-widget',
@@ -305,10 +305,10 @@ return [
         ],
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
+        // [
+        //     'type' => 'sidebar-menu-search',
+        //     'text' => 'search',
+        // ],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
@@ -346,22 +346,27 @@ return [
             'active' =>['admin/movimiento*']
         ],
         
-        ['header' => 'labels'],
+        ['header' => 'Agregar'],
         [
-            'text'       => 'important',
+            'text'       => 'Movimiento',
             'icon_color' => 'red',
-            'url'        => '#',
+            'route'  => 'admin.movimientos.create',
         ],
         [
-            'text'       => 'warning',
+            'text'       => 'Efectivo',
+            'icon_color' => 'green',
+            'route'  => 'admin.movimientos.efectivo',
+        ],
+        [
+            'text'       => 'USDT',
             'icon_color' => 'yellow',
-            'url'        => '#',
+            'route'  => 'admin.movimientos.usdt',
         ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
-        ],
+        // [
+        //     'text'       => 'Cambios',
+        //     'icon_color' => 'cyan',
+        //     'route'  => 'admin.cambios.create',
+        // ],
     ],
 
     /*

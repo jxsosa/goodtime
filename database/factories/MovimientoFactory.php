@@ -20,14 +20,17 @@ class MovimientoFactory extends Factory
      */
     public function definition(): array
     {
-        
+        $bs=$this->faker->randomFloat(2, 10, 50000);
+        $tasa=$this->faker->randomFloat(2, 37, 40);
         return [
             //
-            'tasa' =>$this->faker->randomFloat(2, 37, 40),
-            'monto'=>$this->faker->randomFloat(2, 10, 50000),
+            'bs'=>$bs,
+            'tasa' =>$tasa,
+            'monto'=>$bs/$tasa,
             'ref' =>$this->faker->randomNumber(6, true),
             'descripcion' =>$this->faker->text(200),
             'tipo'=>$this->faker->randomElement(['entrada','salida']),
+            //'cuenta'=>$this->faker->randomElement(['cobrar','pagar']),
             'fecha_entrega'=>$this->faker->date(),
             'user_id' => User::all()->random()->id,
             'cambio_id' => Cambio::all()->random()->id,

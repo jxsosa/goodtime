@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cuenta;
+use App\Models\Movimiento;
 use Illuminate\Http\Request;
 
 class CuentaController extends Controller
@@ -34,16 +35,17 @@ class CuentaController extends Controller
       $request->validate([
         'nombre' => 'required|unique:cuentas'
     ]);
-    $cuenta=Cuenta::create($request->all());
-    return redirect()->route('admin.cuentas.edit', compact('cuenta'))->with('info', 'La cuenta se registro con éxito');
+    $cuentum=Cuenta::create($request->all());
+    return redirect()->route('admin.cuentas.edit', compact('cuentum'))->with('info', 'La cuenta se registro con éxito');
    }
 
     /**
      * Display the specified resource.
      */
-    public function show(Cuenta $cuenta)
+    public function show(Cuenta $cuentum)
     {
-        return view('admin.cuentas.show', compact('cuenta'));
+        $movimientos= Movimiento::where('cuenta_id', '=', $cuentum->id)->get();
+        return view('admin.cuentas.show', compact('cuentum', 'movimientos'));
     }
 
     /**

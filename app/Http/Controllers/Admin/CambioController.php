@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cambio;
+use App\Models\Movimiento;
 use Illuminate\Http\Request;
 
 class CambioController extends Controller
@@ -45,7 +46,8 @@ class CambioController extends Controller
      */
     public function show(Cambio $cambio)
     {
-        return view('admin.cambios.show', compact('$cambio'));
+        $movimientos= Movimiento::where('cambio_id', '=', $cambio->id)->get();
+        return view('admin.cambios.show', compact('cambio', 'movimientos'));
     }
 
     /**

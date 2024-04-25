@@ -22,7 +22,7 @@
             </div>
             <div class="form-grup">
                 {!! Form::label('telefono', 'Telefono') !!}
-                {!! Form::text('telefono', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el telefono del cliente']) !!}
+                {!! Form::tel('telefono', null, ['class' => 'form-control', 'placeholder'=>'Ingrese el telefono del cliente']) !!}
               
                 @error('telefono')
                 <span class="text-danger">{{$message}}</span>
@@ -44,4 +44,3 @@
         </div>
 </div>    
 @stop
-

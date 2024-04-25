@@ -41,5 +41,12 @@
         @stack('modals')
 
         @livewireScripts
+        {{-- para agregarle estilo a la alertas com sweetalert --}}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Livewire.On('error',function(message){
+                alert(message);
+            } )
+        </script>
     </body>
 </html>

@@ -18,7 +18,7 @@ class CambioFactory extends Factory
     {
         return [
             //
-            'nombre'=>$this->faker->randomElement(['cash','zelle','usdt','tranferencia','Bs','gasto'])
+            'nombre'=>$this->faker->randomElement(['CASH','USDT','BS','GASTO','ZELLE','TRANFERENCIAS','COMISIONES'])
         ];
     }
 }

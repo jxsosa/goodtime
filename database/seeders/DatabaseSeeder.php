@@ -8,6 +8,7 @@ use App\Models\Cambio;
 use App\Models\Cliente;
 use App\Models\Cuenta;
 use App\Models\Movimiento;
+use DragonCode\Contracts\Cashier\Config\Queues\Unique;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,9 +25,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call(UserSeeder::class);
-        Cambio::factory(6)->create();
-        Cuenta::factory(10)->create();
-        Cliente::factory(50)->create();
-        Movimiento::factory(100)->create();
+        Cambio::factory(7)->create()->unique();
+        Cuenta::factory(17)->create()->unique();
+        //Cliente::factory(20)->create();
+        //Movimiento::factory(100)->create();
     }
 }

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ValidarDatosCliente;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
 use App\Models\Movimiento;
 use Illuminate\Support\Facades\Redirect;
 use PhpParser\Node\Stmt\Return_;
+use App\Http\Requests\ValidaDatosCliente;
 
 class ClienteController extends Controller
 {
@@ -35,7 +37,7 @@ class ClienteController extends Controller
     {
        $request->validate([
         'nombre' => 'required',
-        'telefono' => 'required'
+        'telefono' => 'required|regex:/^[0-9]{11}$/'
        ]);
        
        //return $request->all(); //retorna el array enviado
@@ -47,17 +49,39 @@ class ClienteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Cliente $cliente)
+    public function show(Cliente $cliente )
     {
        
-         $movimientos= Movimiento::where('cliente_id', $cliente->id)
-                                            ->latest('id')
-                                            ->paginate(10);
+         $movimientos= Movimiento::where('cliente_id', '=', $cliente->id)->get();
+                                           
+         //var_dump($movimientos) ;                                  
     
            
         return view('admin.cliente.show', compact('cliente', 'movimientos'));
-       //return $cliente;
+       //return $movimientos;
     }
+/////OJOJ para mejorar tengo que ver como llamarlo desde la vista
+    // public function montoCliente($id){
+    //     $entrada = 0;
+    //     $salida = 0;
+    //     $saldo = 0;
+    //     $bs=0;
+    //     $movimientos=Movimiento::where('cliente_id', '=', $id)->get();
+
+    //     foreach ($movimientos as $movimiento) {
+    //         if ($movimiento->tipo == 'entrada') {
+    //             $entrada = $entrada + $movimiento->monto;
+    //             $bs = $bs + $movimiento->bs;
+    //         }
+    //         if ($movimiento->tipo == 'salida') {
+    //             $salida = $salida + $movimiento->monto;
+    //              $bs = $bs - $movimiento->bs;
+    //         }
+    //     }
+    //     $saldo = $entrada - $salida;
+    //     return $saldo;
+    // }
+    
 
     /**
      * Show the form for editing the specified resource.

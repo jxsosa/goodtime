@@ -13,7 +13,7 @@
 </div>
 @endif
     <div class="card">
-        <div class="card-body">
+        {{-- <div class="card-body">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -45,7 +45,8 @@
 
 
             </table>
-        </div>
+        </div> --}}
+        @livewire('cuenta-table')
     </div>
 @stop
 

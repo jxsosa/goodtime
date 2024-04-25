@@ -1,5 +1,5 @@
 @props(['movimientos'])
-<div class="card ">
+{{-- <div class="card ">
     <div class="card-body ">        
              
         @php
@@ -26,10 +26,14 @@
           <div class="text-ri">SALDO: {{$saldo=$entrada-$salida}}</div>
        
     </div>
-</div>
-<div class="card">       
+</div> --}}
+<div class="card">  
+    
+    {{-- datatabla de movimiento --}}
+    @livewire('movimiento-table')  
+
     <div class="card-body">
-       <table class="table table-striped">
+       {{-- <table class="table table-striped">
         <thead>
             <tr>
                 <th>ID</th>
@@ -42,7 +46,7 @@
                 <th>Cambio</th>
                 <th>Cuenta</th>
                 <th>Cliente</th>
-                {{-- <th>Observacion</th> --}}
+               
                 <th colspan="2" ></th>
             </tr>
         </thead>
@@ -59,7 +63,7 @@
                     <td>{{$movimiento->cambio->nombre}}</td>
                     <td>{{$movimiento->cuenta->nombre}}</td>
                     <td>{{$movimiento->cliente->nombre}}</td>
-                    {{-- <td ><small>{{$movimiento->descripcion}}</small></td> --}}
+                    
                     
                     <td width="10px">
                         <a class="btn btn-primary btn-sm" href="{{route('admin.movimientos.edit', $movimiento)}}">Editar</a>
@@ -77,7 +81,8 @@
             
         </tbody>
 
-       </table>
+       </table> --}}
+
     </div>
     {{-- {{$movimientos->links()}} --}}
 </div>

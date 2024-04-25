@@ -2,61 +2,89 @@
 @section('title', 'GoodTime')
 
 @section('content_header')
-    <h1>{{$cliente->nombre}}</h1>
-    <p>{{$cliente->email}} TLF: 
-        {{$cliente->telefono}}</p>
-    
-@stop
-@section('content')
-@if (session('info'))
-        <div class="alert alert-success">
-            <strong>{{session('info')}}</strong>
+    <div class="">
+        <h1>{{ $cliente->nombre }}</h1>
+        <p>{{ $cliente->email }} TLF:
+            {{ $cliente->telefono }}</p>
+    </div>
+    @php
+        $entrada = 0;
+        $salida = 0;
+        $saldo = 0;
+        $bs = 0;
+    @endphp
+
+    @foreach ($movimientos as $movimiento)
+        @if ($movimiento->tipo == 'entrada')
+            @php
+                $entrada = $entrada + $movimiento->monto;
+                $bs = $bs + $movimiento->bs;
+
+            @endphp
+        @endif
+        @if ($movimiento->tipo == 'salida')
+            @php
+                $salida = $salida + $movimiento->monto;
+                $bs = $bs - $movimiento->bs;
+
+            @endphp
+        @endif
+    @endforeach
+    @php
+        $saldo = $entrada - $salida;
+    @endphp
+
+    <div class="row ">
+        <div class="col-sm-3">
+            <div class="info-box bg-gradient-warning">
+                <span class="info-box-icon"><i class="fas fa-money-bill-wave-alt"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">SALDO BS TOTAL</span>
+                    <span class="info-box-number">Bs {{ number_format($bs, 2, '.', ',') }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="info-box bg-info">
+                <span class="info-box-icon"><i class="fas fa-plus-circle"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">SALDO ENTRADA</span>
+                    <span class="info-box-number ">$ {{ number_format($entrada, 2, '.', ',') }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="info-box bg-danger">
+                <span class="info-box-icon"><i class="fas fa-minus-circle"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">SALDO SALIDA</span>
+                    <span class="info-box-number">$ {{ number_format($salida, 2, '.', ',') }}</span>
+                </div>
+            </div>
         </div>
 
-    @endif
-    <div class="card">       
-        <div class="card-body">
-           <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Monto</th>
-                    <th>Tasa</th>
-                    <th>REF</th>
-                    <th>Observacion</th>
-                    <th>tipo</th>
-                    <th>Fecha Entrrega</th>
-                    <th colspan="2"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($movimientos as $movimiento)
-                    <tr>
-                        <td>{{$movimiento->id}}</td>
-                        <td>{{$movimiento->monto}}</td>
-                        <td>{{$movimiento->tasa}}</td>
-                        <td>{{$movimiento->ref}}</td>
-                        <td>{{$movimiento->descripcion}}</td>
-                        <td>{{$movimiento->tipo}}</td>
-                        <td>{{$movimiento->fecha_entrega}}</td>
-                        <td width="10px">
-                            <a class="btn btn-primary btn-sm" href="{{route('admin.movimientos.edit', $movimiento)}}">Editar</a>
-                        </td>
-                        <td width="10px">
-                            <form action="{{route('admin.movimientos.destroy', $movimiento)}}" method="POST">
-                                @csrf
-                                @method('delete')
-                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>                                
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-
-            </tbody>
-
-           </table>
+        <div class="col-sm-3">
+            <div class="info-box bg-success">
+                <span class="info-box-icon"><i class="fas fa-dollar-sign"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">SALDO TOTAL</span>
+                    <span class="info-box-number">$ {{ number_format($saldo, 2, '.', ',') }}</span>
+                </div>
+            </div>
         </div>
+
+
     </div>
 @stop
+@section('content')
 
-
+    @if (session('info'))
+        <div class="alert alert-success">
+            <strong>{{ session('info') }}</strong>
+        </div>
+    @endif
+    <div class="card">
+        {{-- datatabla de movimiento --}}
+        @livewire('cliente-movimiento-table', ['cliente' => $cliente])
+    </div>
+@stop

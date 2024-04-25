@@ -18,16 +18,25 @@ class CuentaFactory extends Factory
     {
         return [
             //
-            'nombre' => $this->faker->randomElement(['banesco jhon',
-            'banesco juridica',
-            'Banesco kadrlyn',
-            'banesco david',
-            'banesco carlos',
-            'banesco juan',
-            'venezuela david',
-            'venezuela johan',
-            'venezuela kaderlyn',
-            'banplus jurica'
+            'nombre' => $this->faker->randomElement([
+                'EFECTIVO',
+                'USDT',
+            'BANESCO JHONATHAN',
+            'BANESCO TEREBELL',
+            'BANESCO KADERLYN',
+            'BANESCO DAVID',
+            'BANESCO JOHAN',
+            'BANESCO REBECA',
+            'VENEZUELA DAVID',
+            'VENEZUELA JOHAN',
+            'VENEZUELA KADERLYN',
+            'VENEZUELA JHONATHAN',
+            'VENEZUELA VARGAS2015',
+            'BANPLUS DAVID',
+            'BANPLUS JOHAN',
+            'BANPLUS KADERLYN',
+            'BANPLUS JHONATHAN',
+            'BANPLUS VARGAS2015'
             ])
         ];
     }
