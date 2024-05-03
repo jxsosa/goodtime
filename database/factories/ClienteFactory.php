@@ -18,7 +18,7 @@ class ClienteFactory extends Factory
     public function definition(): array
     {
         
-        $name=$this->faker->name();
+        $name=$this->faker->unique()->name();
         return [
             //
             'nombre' => $name,

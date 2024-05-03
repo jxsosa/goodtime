@@ -37,7 +37,8 @@ class ClienteController extends Controller
     {
        $request->validate([
         'nombre' => 'required',
-        'telefono' => 'required|regex:/^[0-9]{11}$/'
+        // 'telefono' => 'required|regex:/^[0-9]{11}$/'
+        'telefono' => 'regex:/^[0-9]{11}$/'
        ]);
        
        //return $request->all(); //retorna el array enviado
@@ -97,8 +98,8 @@ class ClienteController extends Controller
     public function update(Request $request, Cliente $cliente)
     {
         $request->validate([
-            'nombre' => 'required',
-            'telefono' => 'required'
+            'nombre' => 'required'
+            // 'telefono' => 'required'
            ]);
         $cliente->update($request->all());
         
