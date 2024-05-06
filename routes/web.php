@@ -32,7 +32,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/admin', function () {
-        return view('dashboard');
+        return view('admin.home');
     })->name('dashboard');
     
 });
