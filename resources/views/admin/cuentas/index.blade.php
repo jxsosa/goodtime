@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'GoodTime')
+@section('title', 'Cuentas')
 
 @section('content_header')
     <a class="btn btn-secondary btn-sm float-right" href="{{route('admin.cuentas.create')}}">Nueva Cuenta</a>

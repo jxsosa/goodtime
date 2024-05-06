@@ -19,10 +19,10 @@ use function Laravel\Prompts\table;
 |
 */
 
-/* Route::get('/', function () {
-    return view('admin.home');
-}); */
-Route::get('/', [HomeController::class, 'index'])->name('admin.home');
+Route::get('/', function () {
+    return view('auth.login');
+}); 
+//Route::get('/', [HomeController::class, 'index'])->name('admin.home');
 
 
 
@@ -32,7 +32,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/admin', function () {
-        return view('index');
+        return view('dashboard');
     })->name('dashboard');
     
 });

@@ -68,4 +68,7 @@ class User extends Authenticatable
 
         return $this->hasMany(Movimiento::class);
     }
+     public function adminlte_profile_url(){
+        return 'user/profile';
+     }
 }

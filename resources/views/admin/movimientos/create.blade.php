@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'GoodTime')
+@section('title', 'Crear Movimientos')
 
 @section('content_header')
 
