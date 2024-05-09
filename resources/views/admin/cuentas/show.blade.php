@@ -8,6 +8,7 @@
         $salida = 0;
         $saldo = 0;
         $bs = 0;
+        //$cuentas=Cuenta::find($cuentum->id);
     @endphp
 
     @foreach ($movimientos as $movimiento)
@@ -31,7 +32,7 @@
     @endphp
 
     <div class="row ">
-        
+
         {{-- <div class="col-sm-3">
             <div class="info-box bg-info">
                 <span class="info-box-icon"><i class="fas fa-plus-circle"></i></span>
@@ -50,37 +51,55 @@
                 </div>
             </div>
         </div> --}}
-        <div class="col-sm-3">
-            <div class="info-box bg-gradient-warning">
-                <span class="info-box-icon"><i class="fas fa-money-bill-wave-alt"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">SALDO BS TOTAL</span>
-                    <span class="info-box-number">Bs {{ number_format($bs, 2, '.', ',') }}</span>
+        @if ($cuentum->nombre === 'EFECTIVO')
+            <div class="col-sm-3">
+                <div class="info-box bg-success">
+                    <span class="info-box-icon"><i class="fas fa-dollar-sign"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">SALDO TOTAL</span>
+                        <span class="info-box-number">$ {{ number_format($saldo, 2, '.', ',') }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="info-box bg-secondary">
-                <span class="info-box-icon"><i class="fas fa-hand-holding-usd"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">TASA</span>
-                    <span class="info-box-number"> {{ $retVal = ($saldo===0) ? '0' : number_format($bs/$saldo, 2, '.', ',') ;  }}</span>
+        @else
+            <div class="col-sm-3">
+                <div class="info-box bg-secondary">
+                    <span class="info-box-icon"><i class="fas fa-hand-holding-usd"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">TASA</span>
+                        <span class="info-box-number">
+                            {{ $tasa = $saldo == 0 ? '0' : number_format($bs / $saldo, 2, '.', ',') }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-sm-3">
-            <div class="info-box bg-success">
-                <span class="info-box-icon"><i class="fas fa-dollar-sign"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">SALDO TOTAL</span>
-                    <span class="info-box-number">$ {{ number_format($saldo, 2, '.', ',') }}</span>
+            <div class="col-sm-3">
+                <div class="info-box bg-success">
+                    <span class="info-box-icon"><i class="fas fa-dollar-sign"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">SALDO TOTAL</span>
+                        <span class="info-box-number">$
+                            {{ $retVal = $tasa == 0 ? '0' : number_format($bs /$tasa, 2, '.', ',') }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="col-sm-3">
+                <div class="info-box bg-gradient-warning">
+                    <span class="info-box-icon"><i class="fas fa-money-bill-wave-alt"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">SALDO BS TOTAL</span>
+                        <span class="info-box-number">Bs {{ number_format($bs, 2, '.', ',') }}</span>
+                    </div>
+                </div>
+            </div>
 
 
     </div>
+    @endif
+
+
+
+
 
 @stop
 

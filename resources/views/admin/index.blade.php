@@ -116,6 +116,24 @@
     @endforeach
     @php
         $saldo = $entrada - $salida;
+
+        if ( $banesco ==0) {
+            $BanescoMonto=0;
+        }
+        if ($venezuela ==0) {
+            $VenezuelaMonto=0;
+        }
+        if ($mercantil ==0) {
+            $MercantilMonto=0;
+        }
+        if ($provincial ==0) {
+            $ProvincialMonto=0;
+        }
+        if ($banplus ==0) {
+            $BanplusMonto=0;
+        }
+        $ganacias= $efectivo+$usdt-$BanplusMonto-$ProvincialMonto-$MercantilMonto-$VenezuelaMonto-$BanescoMonto;
+
         if ($BanescoMonto ===0) {
             $BanescoMonto=1;
         }
@@ -130,7 +148,10 @@
         }
         if ($BanplusMonto ===0) {
             $BanplusMonto=1;
-        }
+        } 
+      
+
+       
     @endphp
 
     <div class="container ">
@@ -138,8 +159,9 @@
             <div class="col-sm-6">
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>$ {{ number_format($saldo, 2, '.', ',') }}</h3>
-                        <p>SALDO TOTAL</p>
+                        <h3>$ {{ number_format($ganacias, 2, '.', ',') }}</h3>
+                        {{-- <p>SALDO TOTAL {{ number_format($ganacias, 2, '.', ',') }}</p> --}}
+                        <p>SALDO TOTAL </p>
                     </div>
                     <div class="icon">
 

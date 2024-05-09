@@ -39,24 +39,24 @@ class CuentaTable extends DataTableComponent
                 ->sortable()
                 ->searchable(),
 
+
+            Column::make('TASA', "id")
+                ->sortable()
+                ->searchable()
+                ->format(
+                    fn ($value, $row, Column $column) => '<strong>' . $tasa =  number_format($this->montoCuenta($row->id)['tasa'], 2, '.', ',')   . '</strong>'
+                )
+                ->html(),
             Column::make('Saldo', "id")
                 ->sortable()
                 ->searchable()
                 ->format(
-                    fn ($value, $row, Column $column) => '<strong>$ ' .$saldo= number_format($this->montoCuenta($row->id)['saldo'], 2, '.', ',') . '</strong>'
+                    fn ($value, $row, Column $column) => '<strong>$ ' . $saldo = number_format($this->montoCuenta($row->id)['saldo'], 2, '.', ',') . '</strong>'
                 )
                 ->html(),
-             Column::make('TASA', "id")
+            Column::make('BS', "id")
                 ->sortable()
                 ->searchable()
-                ->format(
-                    fn ($value, $row, Column $column) => '<strong>' .$retVal = ($this->montoCuenta($row->id)['saldo']===0) ? '0' : number_format($this->montoCuenta($row->id)['bs']/$this->montoCuenta($row->id)['saldo'], 2, '.', ',')   . '</strong>'
-                )
-                ->html(),
-
-                Column::make('BS', "id")
-                ->sortable()
-                ->searchable()  
                 ->format(
                     fn ($value, $row, Column $column) => '<strong>Bs ' . number_format($this->montoCuenta($row->id)['bs'], 2, '.', ',') . '</strong>'
                 )
@@ -98,24 +98,92 @@ class CuentaTable extends DataTableComponent
         $salida = 0;
         $saldo = 0;
         $bs = 0;
+        $tasa = 0;
+        $monto = 0;
         $movimientos = Movimiento::where('cuenta_id', '=', $id)->get();
+        $cuentas=Cuenta::find($id);
 
+        //var_dump( $cuentas);
         foreach ($movimientos as $movimiento) {
             if ($movimiento->tipo == 'entrada') {
-                $entrada = $entrada + $movimiento->monto;
+                if ((substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7)) === 0) {
+                    $entrada = $entrada + $movimiento->monto;
+                }
+                if (substr_compare($movimiento->cuenta->nombre, 'USDT', 0, 3) === 0) {
+                    $entrada = $entrada + $movimiento->monto;
+                    $tasa = $movimiento->tasa;
+                } else {
+                    $tasa = $movimiento->tasa;
+                    if ($movimiento->tasa != 0) {
+
+                        $monto = ($movimiento->bs) / $movimiento->tasa;
+                    } else {
+                        $monto = '0';
+                    }
+
+                    //
+                    $entrada = $entrada + $monto;
+                }
+
+                //$entrada = $entrada + $movimiento->monto;
                 $bs = $bs + $movimiento->bs;
             }
             if ($movimiento->tipo == 'salida') {
-                $salida = $salida + $movimiento->monto;
+                if ((substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7)) === 0) {
+                    $salida = $salida + $movimiento->monto;
+                }
+                if ((substr_compare($movimiento->cuenta->nombre, 'USDT', 0, 3)) === 0) {
+                    $salida = $salida + $movimiento->monto;
+                    $tasa = $movimiento->tasa;
+                } else {
+                    $tasa = $movimiento->tasa;
+                    if ($movimiento->tasa != 0) {
+
+                        $monto = ($movimiento->bs) / $movimiento->tasa;
+                    } else {
+                        $monto = '0';
+                    }
+                    $salida = $salida + $monto;
+                }
                 $bs = $bs -  $movimiento->bs;
             }
+
+            
         }
+
         $saldo = $entrada - $salida;
+        if ($cuentas) {
+            $nombreCuenta = $cuentas->nombre; // Aquí obtienes el nombre de la cuenta
+           
+           
+            if (($nombreCuenta==='EFECTIVO' or $nombreCuenta==='USDT') ) {
+                $saldo = $entrada - $salida;
+             }else {
+                
+                if ($bs==0) {
+                    
+                   $saldo=0;
+                   $tasa=0;
+                }
+             }
+
+             
+            
+        } else {
+            // Manejo de caso en que no se encuentra la cuenta con el ID dado
+            $saldo = $entrada - $salida;
+        }
+         
+
+            
+        
+        // $tasa = ($saldo===0) ? '0' : $bs/$saldo ;
         $MontoTotal = [
             'entrada' => $entrada,
             'salida' => $salida,
             'bs' => $bs,
             'saldo' => $saldo,
+            'tasa' => $tasa,
         ];
         return $MontoTotal;
     }

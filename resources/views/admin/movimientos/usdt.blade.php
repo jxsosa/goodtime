@@ -3,7 +3,7 @@
 
 @section('content_header')
 
-    <h1>Movimeinto de USDT</h1>
+    <h1>Movimiento de USDT</h1>
 @stop
 
 @section('content')
@@ -16,7 +16,7 @@
 
                 {!! Form::hidden('user_id', auth()->user()->id) !!}
                 <div class="row row-cols-2">
-                    <div class="col">
+                    {{-- <div class="col">
                         <div class="form-grup ">
                             {!! Form::label('bs', 'BS') !!}
                             {!! Form::text('bs', null, ['class' => 'monto1 form-control', 'placeholder' => 'Ingrese el Monto en BS']) !!}
@@ -39,12 +39,12 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col">
                         <div class="form-grup">
                             {!! Form::label('monto', 'MONTO $') !!}
-                            {!! Form::text('monto', null, ['class' => 'form-control ', 'readonly', 'id' => 'monto']) !!}
-
+                            {{-- {!! Form::text('monto', null, ['class' => 'form-control ', 'readonly', 'id' => 'monto']) !!} --}}
+                            {!! Form::text('monto', null, ['class' => 'form-control ','id'=>'monto']) !!}
                             @error('monto')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -131,7 +131,7 @@
                             @enderror
                         </div>
                     </div>
-                    {{-- <div class="col">
+                    <div class="col">
                         <div class="form-grup ">
                             {!! Form::label('fecha_entrega', 'FECHA ENTREGA') !!}
                             {!! Form::date('fecha_entrega', null, [
@@ -143,7 +143,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div> --}}
+                    </div>
 
                 </div>
             </div>
@@ -151,7 +151,7 @@
 
         </div>
         <div class="col-auto">
-            {!! Form::submit('Crear movimiento', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Crear USDT', ['class' => 'btn btn-primary']) !!}
 
             {!! Form::close() !!}
         </div>
@@ -181,7 +181,7 @@
             });
         });
 
-        $("#bs").on({
+        $("#monto").on({
             "focus": function(event) {
                 $(event.target).select();
             },
