@@ -36,7 +36,7 @@ class CuentaController extends Controller
         'nombre' => 'required|unique:cuentas'
     ]);
     $cuentum=Cuenta::create($request->all());
-    return redirect()->route('admin.cuentas.edit', compact('cuentum'))->with('info', 'La cuenta se registro con éxito');
+    return redirect()->route('admin.cuentas.index', compact('cuentum'))->with('info', 'La cuenta se registro con éxito');
    }
 
     /**

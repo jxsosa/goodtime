@@ -37,7 +37,7 @@ class CambioController extends Controller
             'nombre' => 'required|unique:cambios'
         ]);
         $cambio=Cambio::create($request->all());
-        return redirect()->route('admin.cambios.edit', compact('cambio'))->with('info', 'El cambio se registro con éxito');
+        return redirect()->route('admin.cambios.index', compact('cambio'))->with('info', 'El cambio se registro con éxito');
        
     }
 
