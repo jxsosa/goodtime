@@ -131,7 +131,7 @@
 
         </div>
         <div class="col-auto">
-            {!! Form::submit('Crear movimiento', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Crear Efectivo', ['class' => 'btn btn-primary']) !!}
 
             {!! Form::close() !!}
         </div>

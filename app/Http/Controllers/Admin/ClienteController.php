@@ -38,13 +38,13 @@ class ClienteController extends Controller
        $request->validate([
         'nombre' => 'required',
         // 'telefono' => 'required|regex:/^[0-9]{11}$/'
-        'telefono' => 'regex:/^[0-9]{11}$/'
+       //'telefono' => 'regex:/^[0-9]{11}$/'
        ]);
        
        //return $request->all(); //retorna el array enviado
      $cliente = Cliente::create($request->all());
       //return $cliente;
-      return redirect()->route('admin.cliente.edit', $cliente)->with('info', 'El cliente se creo con exito');
+      return redirect()->route('admin.cliente.index', $cliente)->with('info', 'El cliente se creo con exito');
      }
 
     /**
