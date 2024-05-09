@@ -100,6 +100,8 @@ class CuentaTable extends DataTableComponent
         $bs = 0;
         $tasa = 0;
         $monto = 0;
+        $MontoTasa=0;
+        $EntradaBs=0;
         $movimientos = Movimiento::where('cuenta_id', '=', $id)->get();
         $cuentas=Cuenta::find($id);
 
@@ -117,12 +119,15 @@ class CuentaTable extends DataTableComponent
                     if ($movimiento->tasa != 0) {
 
                         $monto = ($movimiento->bs) / $movimiento->tasa;
+                        $EntradaBs = $EntradaBs + $movimiento->bs;
+                        $MontoTasa=$MontoTasa+($movimiento->bs/$movimiento->tasa);
                     } else {
                         $monto = '0';
                     }
-
-                    //
                     $entrada = $entrada + $monto;
+                    
+                    //
+                   
                 }
 
                 //$entrada = $entrada + $movimiento->monto;
@@ -164,6 +169,10 @@ class CuentaTable extends DataTableComponent
                     
                    $saldo=0;
                    $tasa=0;
+                }
+                if ($MontoTasa!=0) {
+                    $tasa=$EntradaBs/$MontoTasa;
+                    $saldo = $bs/$tasa;
                 }
              }
 

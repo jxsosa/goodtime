@@ -7,7 +7,10 @@
         $entrada = 0;
         $salida = 0;
         $saldo = 0;
+        $tasa=0;
         $bs = 0;
+        $MontoTasa=0;
+        $EntradaBs=0;
         //$cuentas=Cuenta::find($cuentum->id);
     @endphp
 
@@ -16,7 +19,9 @@
             @php
                 $entrada = $entrada + $movimiento->monto;
                 $bs = $bs + $movimiento->bs;
-
+                //$tasa =$tasa+  $movimiento->tasa;
+                $EntradaBs = $EntradaBs + $movimiento->bs;
+                $MontoTasa=$MontoTasa+($movimiento->bs/$movimiento->tasa);
             @endphp
         @endif
         @if ($movimiento->tipo == 'salida')
@@ -28,29 +33,17 @@
         @endif
     @endforeach
     @php
+        if ($MontoTasa!=0) {
+            $tasa=$EntradaBs/$MontoTasa;
+        }
+        
+        
         $saldo = $entrada - $salida;
     @endphp
 
     <div class="row ">
 
-        {{-- <div class="col-sm-3">
-            <div class="info-box bg-info">
-                <span class="info-box-icon"><i class="fas fa-plus-circle"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">SALDO ENTRADA</span>
-                    <span class="info-box-number ">$ {{ number_format($entrada, 2, '.', ',') }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="info-box bg-danger">
-                <span class="info-box-icon"><i class="fas fa-minus-circle"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">SALDO SALIDA</span>
-                    <span class="info-box-number">$ {{ number_format($salida, 2, '.', ',') }}</span>
-                </div>
-            </div>
-        </div> --}}
+       
         @if ($cuentum->nombre === 'EFECTIVO')
             <div class="col-sm-3">
                 <div class="info-box bg-success">
@@ -68,7 +61,7 @@
                     <div class="info-box-content">
                         <span class="info-box-text">TASA</span>
                         <span class="info-box-number">
-                            {{ $tasa = $saldo == 0 ? '0' : number_format($bs / $saldo, 2, '.', ',') }}</span>
+                            {{ $tasa = $saldo == 0 ? '0' : number_format($tasa, 2, '.', ',') }}</span>
                     </div>
                 </div>
             </div>

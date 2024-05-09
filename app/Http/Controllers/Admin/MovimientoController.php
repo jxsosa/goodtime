@@ -109,7 +109,7 @@ class MovimientoController extends Controller
         //     // 'nombre' => 'required|unique:cuentas'
         // ]);
         $movimiento = Movimiento::create($request->all());
-        return redirect()->route('admin.movimientos.edit', compact('movimiento'))->with('info', 'La movimientos se registro con éxito');
+        return redirect()->route('admin.movimientos.index', compact('movimiento'))->with('info', 'La movimientos se registro con éxito');
         // return "la validaciones pasaron con exitos";
     }
 

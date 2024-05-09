@@ -13,7 +13,7 @@
             {!! Form::model($movimiento, ['route' => ['admin.movimientos.update', $movimiento], 'method'=>'put']) !!}
 
             {!! Form::hidden('user_id', auth()->user()->id) !!}
-            <div class="row row-cols-4">
+            <div class="row row-cols-2">
                 <div class="col">
                     <div class="form-grup ">
                         {!! Form::label('bs', 'BS') !!}
@@ -96,7 +96,7 @@
             </div>
         </div>
         <div class="container">
-            <div class="row row-cols-4">
+            <div class="row row-cols-2">
                 <div class="col">
                     <div class="form-grup">
                         {!! Form::label('cliente_id', 'CLIENTE') !!}
