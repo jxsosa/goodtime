@@ -31,6 +31,24 @@
         $MercantilMonto = 0;
         $ProvincialMonto = 0;
         $BanplusMonto = 0;
+        $MontoTasa = 0;
+        $EntradaBs = 0;
+        $MontoTasaBanplus = 0;
+        $ganancias = 0;
+        $MontoTasaProvincial = 0;
+        $MontoTasaMercantil = 0;
+        $MontoTasaVenezuela = 0;
+        $MontoTasaBanesco = 0;
+        $tasaBanplus = 0;
+        $tasaProvincial = 0;
+        $tasaMercantil = 0;
+        $tasaVenezuela = 0;
+        $tasaBanesco = 0;
+        $BanescoBsIn = 0;
+        $VenezuelaBsIn = 0;
+        $MercantilBsIn = 0;
+        $ProvincialBsIn = 0;
+        $BanplusBsIn = 0;
         $movimientos = Movimiento::all();
     @endphp
 
@@ -49,31 +67,64 @@
                 if (substr_compare($movimiento->cuenta->nombre, 'BANESCO', 0, 5) == 0) {
                     $BanescoMonto = $BanescoMonto + $movimiento->monto;
                     $banesco = $banesco + $movimiento->bs;
+                    $BanescoBsIn = $BanescoBsIn + $movimiento->bs;
+                    // echo $banesco."-";
                     $bs = $bs + $movimiento->bs;
+
+                    if ($movimiento->bs != 0 or $movimiento->tasa != 0) {
+                        $MontoTasaBanesco = $MontoTasaBanesco + $movimiento->bs / $movimiento->tasa;
+                    }
+                    $tasaBanesco = $BanescoBsIn / $MontoTasaBanesco;
+                    //echo "-". $MontoTasaBanesco ."-";
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'VENEZUELA', 0, 8) == 0) {
                     $VenezuelaMonto = $VenezuelaMonto + $movimiento->monto;
                     $venezuela = $venezuela + $movimiento->bs;
+                    $VenezuelaBsIn = $VenezuelaBsIn + $movimiento->bs;
                     $bs = $bs + $movimiento->bs;
+                    if ($movimiento->bs != 0 or $movimiento->tasa != 0) {
+                        $MontoTasaVenezuela = $MontoTasaVenezuela + $movimiento->bs / $movimiento->tasa;
+                    }
+                    $tasaVenezuela = $VenezuelaBsIn / $MontoTasaVenezuela;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'MERCANTIL', 0, 8) == 0) {
                     $MercantilMonto = $MercantilMonto + $movimiento->monto;
                     $mercantil = $mercantil + $movimiento->bs;
+                    $MercantilBsIn = $MercantilBsIn + $movimiento->bs;
                     $bs = $bs + $movimiento->bs;
+                    if ($movimiento->bs != 0 or $movimiento->tasa != 0) {
+                        $MontoTasaMercantil = $MontoTasaMercantil + $movimiento->bs / $movimiento->tasa;
+                    }
+                    $tasaVenezuela = $VenezuelaBsIn / $MontoTasaVenezuela;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'PROVINCIAL', 0, 9) == 0) {
                     $ProvincialMonto = $ProvincialMonto + $movimiento->monto;
                     $provincial = $provincial + $movimiento->bs;
+                    $ProvincialBsIn = $ProvincialBsIn + $movimiento->bs;
                     $bs = $bs + $movimiento->bs;
+                    if ($movimiento->bs != 0 or $movimiento->tasa != 0) {
+                        $MontoTasaProvincial = $MontoTasaProvincial + $movimiento->bs / $movimiento->tasa;
+                    }
+                    $tasaVenezuela = $VenezuelaBsIn / $MontoTasaVenezuela;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'BANPLUS', 0, 6) == 0) {
                     $BanplusMonto = $BanplusMonto + $movimiento->monto;
                     $banplus = $banplus + $movimiento->bs;
+                    $BanplusBsIn = $BanplusBsIn + $movimiento->bs;
                     $bs = $bs + $movimiento->bs;
+                    if ($movimiento->bs != 0 or $movimiento->tasa != 0) {
+                        $MontoTasaBanplus = $MontoTasaBanplus + $movimiento->bs / $movimiento->tasa;
+                    }
+                    $tasaBanplus = $BanplusBsIn / $MontoTasaBanplus;
                 }
 
             @endphp
         @endif
+        @php
+
+          
+
+        @endphp
         @if ($movimiento->tipo == 'salida')
             @php
                 $salida = $salida + $movimiento->monto;
@@ -86,7 +137,7 @@
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'BANESCO', 0, 5) == 0) {
-                    $BanescoMonto = $BanescoMonto - $movimiento->monto;
+                     $BanescoMonto = $BanescoMonto - $movimiento->monto;
                     $banesco = $banesco - $movimiento->bs;
                     $bs = $bs - $movimiento->bs;
                 }
@@ -115,53 +166,71 @@
         @endif
     @endforeach
     @php
+
         $saldo = $entrada - $salida;
 
-        if ( $banesco ==0) {
-            $BanescoMonto=0;
-        }
-        if ($venezuela ==0) {
-            $VenezuelaMonto=0;
-        }
-        if ($mercantil ==0) {
-            $MercantilMonto=0;
-        }
-        if ($provincial ==0) {
-            $ProvincialMonto=0;
-        }
-        if ($banplus ==0) {
-            $BanplusMonto=0;
-        }
-        $ganacias= $efectivo+$usdt-$BanplusMonto-$ProvincialMonto-$MercantilMonto-$VenezuelaMonto-$BanescoMonto;
-
-        if ($BanescoMonto ===0) {
-            $BanescoMonto=1;
-        }
-        if ($VenezuelaMonto ===0) {
-            $VenezuelaMonto=1;
-        }
-        if ($MercantilMonto ===0) {
-            $MercantilMonto=1;
-        }
-        if ($ProvincialMonto ===0) {
-            $ProvincialMonto=1;
-        }
-        if ($BanplusMonto ===0) {
-            $BanplusMonto=1;
-        } 
-      
-
        
+        if ($tasaBanesco == 0) {
+            $BanescoCobra=0;
+        }else{
+            $BanescoCobra=($banesco/$tasaBanesco);
+        }
+        if ($tasaVenezuela == 0) {
+            $VenezuelaCobra=0;
+        }else{
+            $VenezuelaCobra=($venezuela/$tasaVenezuela);
+        }
+        if ($tasaMercantil == 0) {
+            $MercantilCobra=0;
+        }else{
+            $MercantilCobra=($mercantil/$tasaMercantil);
+        }
+        if ($tasaProvincial == 0) {
+            $ProvincialCobra=0;
+        }else{
+            $ProvincialCobra=($provincial/$tasaProvincial);
+        }
+        if ($tasaBanplus == 0) {
+            $BanplusCobra=0;
+        }else{
+            $BanplusCobra=($banplus/$tasaBanplus);
+        }
+        $CuentaPagar=0;
+        $CuentaCobrar=0;
+        $CuentaCobrar=$efectivo + $usdt + $BanplusCobra+$ProvincialCobra+$MercantilCobra+$VenezuelaCobra+ $BanescoCobra;
+        $CuentaPagar=$efectivo + $usdt +$BanplusMonto + $ProvincialMonto + $MercantilMonto + $VenezuelaMonto + $BanescoMonto;
+        $ganancias =$CuentaCobrar-$CuentaPagar;
+            
+
+
     @endphp
 
     <div class="container ">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>$ {{ number_format($ganacias, 2, '.', ',') }}</h3>
+                        <h3>$ {{ number_format($ganancias, 2, '.', ',') }}</h3>
                         {{-- <p>SALDO TOTAL {{ number_format($ganacias, 2, '.', ',') }}</p> --}}
-                        <p>SALDO TOTAL </p>
+                        <p>SALDO TOTAL</p>
+                        
+                    </div>
+                    <div class="icon">
+
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="small-box bg-secondary">
+                    <div class="inner">
+                        <h3>$ {{ number_format($CuentaCobrar, 2, '.', ',') }}</h3>
+                        {{-- <p>SALDO TOTAL {{ number_format($ganacias, 2, '.', ',') }}</p> --}}
+                        <p>CUENTA POR COBRAR SALDO  </p>
+                        
                     </div>
                     <div class="icon">
 
@@ -173,14 +242,14 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
-                <div class="small-box bg-gradient-primary">
+            <div class="col-sm-4">
+                <div class="small-box bg-gradient-danger">
                     <div class="inner">
-                        <h3>Bs {{ number_format($bs, 2, '.', ',') }}</h3>
-                        <p>TOTAL BS.</p>
+                        <h3>$ {{ number_format($CuentaPagar, 2, '.', ',') }}</h3>
+                        <p> CUENTA POR PAGAR SALDO</p>
                     </div>
                     <div class="icon">
-                        <i class="fas fa-coins"></i>
+                        <i class="fas fa-dollar-sign "></i>
                     </div><i <a href="#" class="small-box-footer">
                         More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
@@ -189,7 +258,21 @@
         </div>
         <div class="row">
 
-            <div class="col-sm-6">
+            <div class="col-sm-4">
+                <div class="small-box bg-gradient-primary">
+                    <div class="inner">
+                        <h3>Bs {{ number_format($bs, 2, '.', ',') }}</h3>
+                        <p>TOTAL BS.</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">
+                        More info <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-4">
                 <div class="small-box bg-gradient-Light">
                     <div class="inner">
                         <h3>$ {{ number_format($efectivo, 2, '.', ',') }}</h3>
@@ -203,7 +286,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-4">
                 <div class="small-box bg-gradient-warning">
                     <div class="inner">
                         <h3>$ {{ number_format($usdt, 2, '.', ',') }}</h3>
@@ -223,7 +306,7 @@
                 <div class="small-box bg-gradient-dark">
                     <div class="inner">
                         <h3>Bs {{ number_format($venezuela, 2, '.', ',') }}</h3>
-                        <p>TASA {{ number_format($venezuela/$VenezuelaMonto, 2, '.', ',') }}</p>
+                        <p>TASA {{ number_format($tasaVenezuela, 2, '.', ',') }}</p>
                         <p>BANCO VENEZUELA</p>
                     </div>
                     <div class="icon">
@@ -238,8 +321,8 @@
                 <div class="small-box bg-gradient-dark">
                     <div class="inner">
                         <h3>Bs {{ number_format($banesco, 2, '.', ',') }}</h3>
-                        <p>TASA {{ number_format($banesco/$BanescoMonto, 2, '.', ',') }}</p>
-                        <p>BANCO BANESCO</p>
+                        <p>TASA {{ number_format($tasaBanesco, 2, '.', ',') }}</p>
+                        <p>BANCO BANESCO </p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-money-bill-wave"></i>
@@ -253,8 +336,8 @@
                 <div class="small-box bg-gradient-dark">
                     <div class="inner">
                         <h3>Bs {{ number_format($provincial, 2, '.', ',') }}</h3>
-                        <p>TASA {{ number_format($provincial/$ProvincialMonto, 2, '.', ',') }}</p>
-                        
+                        <p>TASA {{ number_format($tasaProvincial, 2, '.', ',') }}</p>
+
                         <p>BANCO PROVINCIAL</p>
                     </div>
                     <div class="icon">
@@ -269,7 +352,7 @@
                 <div class="small-box bg-gradient-dark">
                     <div class="inner">
                         <h3>Bs {{ number_format($mercantil, 2, '.', ',') }}</h3>
-                        <p>TASA {{ number_format($mercantil/$MercantilMonto, 2, '.', ',') }}</p>
+                        <p>TASA {{ number_format($tasaMercantil, 2, '.', ',') }}</p>
                         <p>BANCO MERCANTIL</p>
                     </div>
                     <div class="icon">
@@ -284,7 +367,7 @@
                 <div class="small-box bg-gradient-dark">
                     <div class="inner">
                         <h3>Bs {{ number_format($banplus, 2, '.', ',') }}</h3>
-                        <p>TASA {{ number_format($banplus/$BanplusMonto, 2, '.', ',') }}</p>
+                        <p>TASA {{ number_format($tasaBanplus, 2, '.', ',') }}</p>
                         <p>BANCO BANPLUS</p>
                     </div>
                     <div class="icon">
