@@ -109,7 +109,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => false,
+        'enabled' => true,
         'img' => [
             'path' => 'vendor/adminlte/dist/img/logo.png',
             //'path' => 'vendor/img/logo.php',

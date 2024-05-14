@@ -49,6 +49,11 @@
         $MercantilBsIn = 0;
         $ProvincialBsIn = 0;
         $BanplusBsIn = 0;
+        $EfectivoIn=0;
+        $USDTIn=0;
+        $EfectivoOut=0;
+        $USDTOut=0;
+
         $movimientos = Movimiento::all();
     @endphp
 
@@ -59,9 +64,11 @@
 
                 if (substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7) == 0) {
                     $efectivo = $efectivo + $movimiento->monto;
+                    $EfectivoIn=$EfectivoIn + $movimiento->monto;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'USDT', 0, 3) == 0) {
                     $usdt = $usdt + $movimiento->monto;
+                    $USDTIn=$USDTIn + $movimiento->monto;
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'BANESCO', 0, 5) == 0) {
@@ -131,9 +138,11 @@
 
                 if (substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7) == 0) {
                     $efectivo = $efectivo - $movimiento->monto;
+                    $EfectivoOut=$EfectivoOut + $movimiento->monto;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'USDT', 0, 3) == 0) {
                     $usdt = $usdt - $movimiento->monto;
+                    $USDTOut=$USDTOut + $movimiento->monto;
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'BANESCO', 0, 5) == 0) {
@@ -197,8 +206,8 @@
         }
         $CuentaPagar=0;
         $CuentaCobrar=0;
-        $CuentaCobrar=$efectivo + $usdt + $BanplusCobra+$ProvincialCobra+$MercantilCobra+$VenezuelaCobra+ $BanescoCobra;
-        $CuentaPagar=$efectivo + $usdt +$BanplusMonto + $ProvincialMonto + $MercantilMonto + $VenezuelaMonto + $BanescoMonto;
+        $CuentaCobrar=$EfectivoIn + $USDTOut + $BanplusCobra+$ProvincialCobra+$MercantilCobra+$VenezuelaCobra+ $BanescoCobra;
+        $CuentaPagar=$EfectivoOut + $USDTOut+$BanplusMonto + $ProvincialMonto + $MercantilMonto + $VenezuelaMonto + $BanescoMonto;
         $ganancias =$CuentaCobrar-$CuentaPagar;
             
 
