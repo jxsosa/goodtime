@@ -216,8 +216,11 @@
         }
         $CuentaPagar=0;
         $CuentaCobrar=0;
-        $CuentaCobrar=$EfectivoIn + $USDTIn + $BanplusCobra+$ProvincialCobra+$MercantilCobra+$VenezuelaCobra+ $BanescoCobra;
-        $CuentaPagar=$EfectivoOut + $USDTOut+$BanplusMonto + $ProvincialMonto + $MercantilMonto + $VenezuelaMonto + $BanescoMonto;
+
+        $CuentaCobrar=($EfectivoIn-$EfectivoOut) + ($USDTIn-$USDTOut) + $BanplusCobra+$ProvincialCobra+$MercantilCobra+$VenezuelaCobra+ $BanescoCobra;
+        //$CuentaPagar=$EfectivoOut + $USDTOut+$BanplusMonto + $ProvincialMonto + $MercantilMonto + $VenezuelaMonto + $BanescoMonto;
+        $CuentaPagar=$saldo;
+        
         $ganancias =$CuentaCobrar-$CuentaPagar;
             
 
@@ -230,7 +233,7 @@
                 <div class="small-box bg-success">
                     <div class="inner">
                         <h3>$ {{ number_format($ganancias, 2, '.', ',') }}</h3>
-                        {{-- <p>SALDO TOTAL {{ number_format($ganacias, 2, '.', ',') }}</p> --}}
+                        <p>SALDO TOTAL {{ number_format($saldo, 2, '.', ',') }}</p>
                         <p>SALDO TOTAL</p>
                         
                     </div>
