@@ -216,7 +216,7 @@
         }
         $CuentaPagar=0;
         $CuentaCobrar=0;
-        $CuentaCobrar=$EfectivoIn + $USDTOut + $BanplusCobra+$ProvincialCobra+$MercantilCobra+$VenezuelaCobra+ $BanescoCobra;
+        $CuentaCobrar=$EfectivoIn + $USDTIn + $BanplusCobra+$ProvincialCobra+$MercantilCobra+$VenezuelaCobra+ $BanescoCobra;
         $CuentaPagar=$EfectivoOut + $USDTOut+$BanplusMonto + $ProvincialMonto + $MercantilMonto + $VenezuelaMonto + $BanescoMonto;
         $ganancias =$CuentaCobrar-$CuentaPagar;
             
