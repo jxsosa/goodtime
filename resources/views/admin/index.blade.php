@@ -233,7 +233,7 @@
                 <div class="small-box bg-success">
                     <div class="inner">
                         <h3>$ {{ number_format($ganancias, 2, '.', ',') }}</h3>
-                        <p>SALDO TOTAL {{ number_format($saldo, 2, '.', ',') }}</p>
+                        {{-- <p>SALDO TOTAL {{ number_format($saldo, 2, '.', ',') }}</p> --}}
                         <p>SALDO TOTAL</p>
                         
                     </div>
