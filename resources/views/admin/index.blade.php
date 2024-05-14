@@ -107,7 +107,7 @@
                     if ($movimiento->bs != 0 or $movimiento->tasa != 0) {
                         $MontoTasaMercantil = $MontoTasaMercantil + $movimiento->bs / $movimiento->tasa;
                     }
-                    $tasaVenezuela = $VenezuelaBsIn / $MontoTasaVenezuela;
+                    $tasaMercantil = $MercantilBsIn / $MontoTasaMercantil;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'PROVINCIAL', 0, 9) == 0) {
                     $ProvincialMonto = $ProvincialMonto + $movimiento->monto;
@@ -117,7 +117,7 @@
                     if ($movimiento->bs != 0 or $movimiento->tasa != 0) {
                         $MontoTasaProvincial = $MontoTasaProvincial + $movimiento->bs / $movimiento->tasa;
                     }
-                    $tasaVenezuela = $VenezuelaBsIn / $MontoTasaVenezuela;
+                    $tasaProvincial = $ProvincialBsIn / $MontoTasaProvincial;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'BANPLUS', 0, 6) == 0) {
                     $BanplusMonto = $BanplusMonto + $movimiento->monto;
