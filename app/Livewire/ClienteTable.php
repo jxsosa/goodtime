@@ -53,12 +53,12 @@ class ClienteTable extends DataTableComponent
             Column::make("Telefono", "telefono")
                 ->sortable()
                 ->searchable()
-                ->collapseOnTablet(),
+                ->collapseAlways(),
             Column::make('Saldo', "id")
                 ->sortable()
                 ->searchable()
                 ->format(
-                    fn($value, $row, Column $column) => '<strong>$ '.number_format($this->montoCliente($row->id), 2, '.', ',').'</strong>'
+                    fn($value, $row, Column $column) => '<strong>'.$retVal = (number_format($this->montoCliente($row->id), 2, '.', ',')>=0) ? '<strong>' . number_format($this->montoCliente($row->id), 2, '.', ',') . ' $<strong>' : '<strong><i class=" text-danger">' . number_format($this->montoCliente($row->id), 2, '.', ',') . '</i> $'  .'</strong>'
                    )
                 ->html(),
 

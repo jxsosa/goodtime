@@ -61,7 +61,7 @@
         @if ($movimiento->tipo == 'entrada')
             @php
                 $entrada = $entrada + $movimiento->monto;
-
+                
                 if (substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7) == 0) {
                     $efectivo = $efectivo + $movimiento->monto;
                     $EfectivoIn=$EfectivoIn + $movimiento->monto;
@@ -69,6 +69,11 @@
                 if (substr_compare($movimiento->cuenta->nombre, 'USDT', 0, 3) == 0) {
                     $usdt = $usdt + $movimiento->monto;
                     $USDTIn=$USDTIn + $movimiento->monto;
+                }
+                if (str_contains($movimiento->cliente->nombre, 'USDT')) {
+                    $usdt = $usdt - $movimiento->monto;
+                    $USDTOut=$USDTOut + $movimiento->monto;
+                    
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'BANESCO', 0, 5) == 0) {
@@ -135,7 +140,7 @@
         @if ($movimiento->tipo == 'salida')
             @php
                 $salida = $salida + $movimiento->monto;
-
+                
                 if (substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7) == 0) {
                     $efectivo = $efectivo - $movimiento->monto;
                     $EfectivoOut=$EfectivoOut + $movimiento->monto;
@@ -143,6 +148,11 @@
                 if (substr_compare($movimiento->cuenta->nombre, 'USDT', 0, 3) == 0) {
                     $usdt = $usdt - $movimiento->monto;
                     $USDTOut=$USDTOut + $movimiento->monto;
+                }
+                if (str_contains($movimiento->cliente->nombre, 'USDT')) {
+                    $usdt = $usdt + $movimiento->monto;
+                    
+                    $USDTIn=$USDTIn + $movimiento->monto;
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'BANESCO', 0, 5) == 0) {
