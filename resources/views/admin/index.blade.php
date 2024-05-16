@@ -83,7 +83,7 @@
                     // echo $banesco."-";
                     $bs = $bs + $movimiento->bs;
 
-                    if ($movimiento->bs != 0 or $movimiento->tasa != 0) {
+                    if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
                         $MontoTasaBanesco = $MontoTasaBanesco + $movimiento->bs / $movimiento->tasa;
                     }
                     $tasaBanesco = $BanescoBsIn / $MontoTasaBanesco;
@@ -94,7 +94,7 @@
                     $venezuela = $venezuela + $movimiento->bs;
                     $VenezuelaBsIn = $VenezuelaBsIn + $movimiento->bs;
                     $bs = $bs + $movimiento->bs;
-                    if ($movimiento->bs != 0 or $movimiento->tasa != 0) {
+                    if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
                         $MontoTasaVenezuela = $MontoTasaVenezuela + $movimiento->bs / $movimiento->tasa;
                     }
                     $tasaVenezuela = $VenezuelaBsIn / $MontoTasaVenezuela;
@@ -104,7 +104,7 @@
                     $mercantil = $mercantil + $movimiento->bs;
                     $MercantilBsIn = $MercantilBsIn + $movimiento->bs;
                     $bs = $bs + $movimiento->bs;
-                    if ($movimiento->bs != 0 or $movimiento->tasa != 0) {
+                    if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
                         $MontoTasaMercantil = $MontoTasaMercantil + $movimiento->bs / $movimiento->tasa;
                     }
                     $tasaMercantil = $MercantilBsIn / $MontoTasaMercantil;
@@ -114,7 +114,7 @@
                     $provincial = $provincial + $movimiento->bs;
                     $ProvincialBsIn = $ProvincialBsIn + $movimiento->bs;
                     $bs = $bs + $movimiento->bs;
-                    if ($movimiento->bs != 0 or $movimiento->tasa != 0) {
+                    if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
                         $MontoTasaProvincial = $MontoTasaProvincial + $movimiento->bs / $movimiento->tasa;
                     }
                     $tasaProvincial = $ProvincialBsIn / $MontoTasaProvincial;
