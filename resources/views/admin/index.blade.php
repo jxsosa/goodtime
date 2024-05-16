@@ -86,8 +86,8 @@
                     if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
                         $MontoTasaBanesco = $MontoTasaBanesco + $movimiento->bs / $movimiento->tasa;
                     }
-                    ECHO $tasaBanesco = $BanescoBsIn / $MontoTasaBanesco;
-                    echo "-". $MontoTasaBanesco ."-";
+                     $tasaBanesco = $BanescoBsIn / $MontoTasaBanesco;
+                    echo "-". $tasaBanesco ."-";
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'VENEZUELA', 0, 8) == 0) {
                     $VenezuelaMonto = $VenezuelaMonto + $movimiento->monto;
