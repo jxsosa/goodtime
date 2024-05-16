@@ -346,6 +346,12 @@ return [
             'icon' => 'fas fa-fw fa-hand-holding-usd',
             'active' =>['admin/movimiento*']
         ],
+        [
+            'text' => 'Efectivo',
+            'url'  => 'admin/cuenta/1',
+            'icon' => 'fas fa-dollar-sign',
+            'active' =>['admin/cuenta/1']
+        ],
         
         ['header' => 'Agregar'],
         [
