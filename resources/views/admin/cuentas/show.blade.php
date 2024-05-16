@@ -21,7 +21,10 @@
                 $bs = $bs + $movimiento->bs;
                 //$tasa =$tasa+  $movimiento->tasa;
                 $EntradaBs = $EntradaBs + $movimiento->bs;
-                $MontoTasa=$MontoTasa+($movimiento->bs/$movimiento->tasa);
+                
+                if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
+                    $MontoTasa=$MontoTasa+($movimiento->bs/$movimiento->tasa);
+                    }
             @endphp
         @endif
         @if ($movimiento->tipo == 'salida')
