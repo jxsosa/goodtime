@@ -88,6 +88,31 @@ class MovimientoController extends Controller
         return view('admin.movimientos.usdt', compact('cliente','cambio','cuenta', 'CuentaDefault'));
     }
 
+    public function zelle()
+    {
+        ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
+        $cliente = Cliente::pluck('nombre', 'id')->sortBy('nombre');
+        $cambio = Cambio::pluck('nombre', 'id');
+        $cuenta = Cuenta::pluck('nombre', 'id');
+        $nombreBuscado = 'ZELLE';
+        $idEncontrado=0;
+        $cuentas2=Cuenta::all();
+        //$resultado =array_column($cuenta2, 'nombre', 'id');
+        $CuentaDefault = 0;
+       
+        // Buscar el id correspondiente al nombre buscado
+        foreach ($cuentas2 as $cuenta2) {
+            if ($cuenta2['nombre'] == $nombreBuscado) {
+                $CuentaDefault = $cuenta2['id'];
+                break; // Salir del bucle una vez encontrado
+            }
+        }
+
+       //return    $idEncontrado;
+
+        return view('admin.movimientos.zelle', compact('cliente','cambio','cuenta', 'CuentaDefault'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -104,10 +129,7 @@ class MovimientoController extends Controller
         $monto = $request->input('monto');
         $montoFormateado = (float) str_replace(',', '', $monto);
         $request->merge(['monto' => $montoFormateado]);
-        //return request()->all();
-        // $request->validate([
-        //     // 'nombre' => 'required|unique:cuentas'
-        // ]);
+        
         $movimiento = Movimiento::create($request->all());
         return redirect()->route('admin.movimientos.index', compact('movimiento'))->with('info', 'La movimientos se registro con éxito');
         // return "la validaciones pasaron con exitos";

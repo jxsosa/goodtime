@@ -47,7 +47,7 @@
     <div class="row ">
 
        
-        @if ($cuentum->nombre === 'EFECTIVO')
+        @if ($cuentum->nombre === 'EFECTIVO' or $cuentum->nombre === 'ZELLE'or $cuentum->nombre === 'USDT')
             <div class="col-sm-3">
                 <div class="info-box bg-success">
                     <span class="info-box-icon"><i class="fas fa-dollar-sign"></i></span>

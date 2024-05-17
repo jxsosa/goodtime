@@ -343,7 +343,7 @@ return [
         [
             'text' => 'Movimientos',
             'route'  => 'admin.movimientos.index',
-            'icon' => 'fas fa-fw fa-hand-holding-usd',
+            'icon' => 'fas fa-search-dollar',
             'active' =>['admin/movimiento*']
         ],
         [
@@ -351,6 +351,12 @@ return [
             'url'  => 'admin/cuenta/1',
             'icon' => 'fas fa-dollar-sign',
             'active' =>['admin/cuenta/1']
+        ],
+        [
+            'text' => 'ZELLE',
+            'url'  => 'admin/cuenta/1',
+            'icon' => 'fas fa-fw fa-hand-holding-usd',
+            'active' =>['admin/cuenta/23']
         ],
         
         ['header' => 'Agregar'],
@@ -368,6 +374,11 @@ return [
             'text'       => 'USDT',
             'icon_color' => 'yellow',
             'route'  => 'admin.movimientos.usdt',
+        ],
+        [
+            'text'       => 'ZELLE',
+            'icon_color' => 'cyan',
+            'route'  => 'admin.movimientos.zelle',
         ],
         // [
         //     'text'       => 'Cambios',

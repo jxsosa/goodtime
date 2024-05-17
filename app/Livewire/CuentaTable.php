@@ -110,6 +110,8 @@ class CuentaTable extends DataTableComponent
             if ($movimiento->tipo == 'entrada') {
                 if ((substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7)) === 0) {
                     $entrada = $entrada + $movimiento->monto;
+                }if ((substr_compare($movimiento->cuenta->nombre, 'ZELLE', 0, 4)) === 0) {
+                    $entrada = $entrada + $movimiento->monto;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'USDT', 0, 3) === 0) {
                     $entrada = $entrada + $movimiento->monto;
@@ -137,6 +139,9 @@ class CuentaTable extends DataTableComponent
                 if ((substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7)) === 0) {
                     $salida = $salida + $movimiento->monto;
                 }
+                if ((substr_compare($movimiento->cuenta->nombre, 'ZELLE', 0, 4)) === 0) {
+                    $salida = $salida + $movimiento->monto;
+                }
                 if ((substr_compare($movimiento->cuenta->nombre, 'USDT', 0, 3)) === 0) {
                     $salida = $salida + $movimiento->monto;
                     $tasa = $movimiento->tasa;
@@ -161,7 +166,7 @@ class CuentaTable extends DataTableComponent
             $nombreCuenta = $cuentas->nombre; // Aquí obtienes el nombre de la cuenta
            
            
-            if (($nombreCuenta==='EFECTIVO' or $nombreCuenta==='USDT') ) {
+            if (($nombreCuenta==='EFECTIVO' or $nombreCuenta==='USDT' or $nombreCuenta==='ZELLE') ) {
                 $saldo = $entrada - $salida;
              }else {
                 

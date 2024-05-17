@@ -33,6 +33,6 @@ Route::middleware([
 ])->group(function () {
     Route::get('/admin', function () {
         return view('admin.home');
-    })->name('dashboard');
+    })->name('admin');
     
 });
