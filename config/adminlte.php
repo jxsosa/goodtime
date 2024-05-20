@@ -360,9 +360,9 @@ return [
         ],
         [
             'text' => 'GASTO',
-            'url'  => 'admin/cuenta/129',
+            'url'  => 'admin/cliente/129',
             'icon' => 'fas  fa-shopping-cart',
-            'active' =>['admin/cuenta/129']
+            'active' =>['admin/cliente/129']
         ],
         
         ['header' => 'Agregar'],
