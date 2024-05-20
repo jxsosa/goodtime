@@ -11,12 +11,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpParser\Node\Stmt\Return_;
 
 class ClienteTable extends DataTableComponent
 {
 
-   
-    protected $model = Cliente::class; //es lo mismo pero generico
+    public cliente $cliente;
+    //protected $model = Cliente::class; //es lo mismo pero generico
 
     public function configure(): void
     {
@@ -94,12 +95,13 @@ class ClienteTable extends DataTableComponent
                
         ];
     }
-    //para generar consulta mas compleja
-    // public function builder(): Builder
-    // {
-    //     return Cliente::query()
-    //         ->with('Movimiento');
-    // }
+    public function builder(): Builder
+    {
+
+        return Cliente::query()
+            
+            ->where('nombre', 'NOT LIKE', '%GASTO%');
+    }
     
     public  function deleteSelected(){
         if ($this->getSelected()) {

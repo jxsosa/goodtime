@@ -9,6 +9,7 @@
     @php
         use App\Models\Movimiento;
         use App\Models\Cuenta;
+        use App\Models\Cliente;
         $entrada = 0;
         $salida = 0;
         $saldo = 0;
@@ -49,37 +50,53 @@
         $MercantilBsIn = 0;
         $ProvincialBsIn = 0;
         $BanplusBsIn = 0;
-        $EfectivoIn=0;
-        $USDTIn=0;
-        $EfectivoOut=0;
-        $USDTOut=0;
-        $zelle=0;
-        $zelleIn=0;
-        $zelleOut=0;
-        $movimientos = Movimiento::all();
+        $EfectivoIn = 0;
+        $USDTIn = 0;
+        $EfectivoOut = 0;
+        $USDTOut = 0;
+        $zelle = 0;
+        $zelleIn = 0;
+        $zelleOut = 0;
+        $gasto=0;
+        $nombreBuscado = 'GASTOS';
+        $idEncontrado = 0;
+        $clientes = Cliente::all();
+
+        // Buscar el id correspondiente al nombre buscado
+        foreach ($clientes as $cliente) {
+            if ($cliente['nombre'] == $nombreBuscado) {
+                 $idEncontrado = $cliente['id'];
+                break; // Salir del bucle una vez encontrado
+            }
+        }
+        $movimientos=Movimiento::all();
+        //$movimientos = Movimiento::where('cliente_id', '<>', $idEncontrado)->get();
+
     @endphp
 
     @foreach ($movimientos as $movimiento)
         @if ($movimiento->tipo == 'entrada')
             @php
                 $entrada = $entrada + $movimiento->monto;
-                
+                if (str_contains($movimiento->cliente->nombre, 'GASTOS')) {
+                   echo $gasto = $gasto + $movimiento->monto;
+                }
+
                 if (substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7) == 0) {
                     $efectivo = $efectivo + $movimiento->monto;
-                    $EfectivoIn=$EfectivoIn + $movimiento->monto;
+                    $EfectivoIn = $EfectivoIn + $movimiento->monto;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'USDT', 0, 3) == 0) {
                     $usdt = $usdt + $movimiento->monto;
-                    $USDTIn=$USDTIn + $movimiento->monto;
+                    $USDTIn = $USDTIn + $movimiento->monto;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'ZELLE', 0, 4) == 0) {
                     $zelle = $zelle + $movimiento->monto;
-                    $zelleIn=$zelleIn + $movimiento->monto;
+                    $zelleIn = $zelleIn + $movimiento->monto;
                 }
                 if (str_contains($movimiento->cliente->nombre, 'USDT')) {
                     $usdt = $usdt + $movimiento->monto;
-                    $USDTOut=$USDTOut + $movimiento->monto;
-                    
+                    $USDTOut = $USDTOut + $movimiento->monto;
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'BANESCO', 0, 5) == 0) {
@@ -92,7 +109,7 @@
                     if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
                         $MontoTasaBanesco = $MontoTasaBanesco + $movimiento->bs / $movimiento->tasa;
                     }
-                     $tasaBanesco = $BanescoBsIn / $MontoTasaBanesco;
+                    $tasaBanesco = $BanescoBsIn / $MontoTasaBanesco;
                     //echo "-". $tasaBanesco ."-";
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'VENEZUELA', 0, 8) == 0) {
@@ -140,33 +157,34 @@
         @endif
         @php
 
-          
-
         @endphp
         @if ($movimiento->tipo == 'salida')
             @php
                 $salida = $salida + $movimiento->monto;
-                
+                if (str_contains($movimiento->cliente->nombre, 'GASTOS')) {
+                   echo $gasto = $gasto + $movimiento->monto;
+                }
+
                 if (substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7) == 0) {
                     $efectivo = $efectivo - $movimiento->monto;
-                    $EfectivoOut=$EfectivoOut + $movimiento->monto;
+                    $EfectivoOut = $EfectivoOut + $movimiento->monto;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'USDT', 0, 3) == 0) {
                     $usdt = $usdt - $movimiento->monto;
-                    $USDTOut=$USDTOut + $movimiento->monto;
+                    $USDTOut = $USDTOut + $movimiento->monto;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'ZELLE', 0, 4) == 0) {
                     $zelle = $zelle - $movimiento->monto;
-                    $zelleOut=$zelleOut + $movimiento->monto;
+                    $zelleOut = $zelleOut + $movimiento->monto;
                 }
                 if (str_contains($movimiento->cliente->nombre, 'USDT')) {
                     $usdt = $usdt - $movimiento->monto;
-                    
-                    $USDTIn=$USDTIn + $movimiento->monto;
+
+                    $USDTIn = $USDTIn + $movimiento->monto;
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'BANESCO', 0, 5) == 0) {
-                     $BanescoMonto = $BanescoMonto - $movimiento->monto;
+                    $BanescoMonto = $BanescoMonto - $movimiento->monto;
                     $banesco = $banesco - $movimiento->bs;
                     $bs = $bs - $movimiento->bs;
                 }
@@ -198,44 +216,48 @@
 
         $saldo = $entrada - $salida;
 
-       
         if ($tasaBanesco == 0) {
-            $BanescoCobra=0;
-        }else{
-            $BanescoCobra=($banesco/$tasaBanesco);
+            $BanescoCobra = 0;
+        } else {
+            $BanescoCobra = $banesco / $tasaBanesco;
         }
         if ($tasaVenezuela == 0) {
-            $VenezuelaCobra=0;
-        }else{
-            $VenezuelaCobra=($venezuela/$tasaVenezuela);
+            $VenezuelaCobra = 0;
+        } else {
+            $VenezuelaCobra = $venezuela / $tasaVenezuela;
         }
         if ($tasaMercantil == 0) {
-            $MercantilCobra=0;
-        }else{
-            $MercantilCobra=($mercantil/$tasaMercantil);
+            $MercantilCobra = 0;
+        } else {
+            $MercantilCobra = $mercantil / $tasaMercantil;
         }
         if ($tasaProvincial == 0) {
-            $ProvincialCobra=0;
-        }else{
-            $ProvincialCobra=($provincial/$tasaProvincial);
+            $ProvincialCobra = 0;
+        } else {
+            $ProvincialCobra = $provincial / $tasaProvincial;
         }
         if ($tasaBanplus == 0) {
-            $BanplusCobra=0;
-        }else{
-            $BanplusCobra=($banplus/$tasaBanplus);
+            $BanplusCobra = 0;
+        } else {
+            $BanplusCobra = $banplus / $tasaBanplus;
         }
-        $CuentaPagar=0;
-        $CuentaCobrar=0;
+        $CuentaPagar = 0;
+        $CuentaCobrar = 0;
 
         //$CuentaCobrar=($EfectivoIn-$EfectivoOut) + ($USDTIn-$USDTOut) + $BanplusCobra+$ProvincialCobra+$MercantilCobra+$VenezuelaCobra+ $BanescoCobra;
         //$CuentaPagar=$EfectivoOut + $USDTOut+$BanplusMonto + $ProvincialMonto + $MercantilMonto + $VenezuelaMonto + $BanescoMonto;
-        $CuentaPagar=$saldo;
-                $CuentaCobrar=($EfectivoIn-$EfectivoOut)+ $zelleIn +$USDTIn-$USDTOut+ $BanplusCobra+$ProvincialCobra+$MercantilCobra+$VenezuelaCobra+ $BanescoCobra;
+        $CuentaPagar = $saldo + $gasto;
+        $CuentaCobrar =
+            $efectivo+
+            $zelleIn +
+            $usdt +
+            $BanplusCobra +
+            $ProvincialCobra +
+            $MercantilCobra +
+            $VenezuelaCobra +
+            $BanescoCobra;
 
-        
-        $ganancias =$CuentaCobrar-$CuentaPagar;
-            
-
+        $ganancias = $CuentaCobrar - $CuentaPagar;
 
     @endphp
 
@@ -247,7 +269,7 @@
                         <h3>$ {{ number_format($ganancias, 2, '.', ',') }}</h3>
                         {{-- <p>SALDO TOTAL {{ number_format($saldo, 2, '.', ',') }}</p> --}}
                         <p>SALDO TOTAL</p>
-                        
+
                     </div>
                     <div class="icon">
 
@@ -263,8 +285,8 @@
                     <div class="inner">
                         <h3>$ {{ number_format($CuentaCobrar, 2, '.', ',') }}</h3>
                         {{-- <p>SALDO TOTAL {{ number_format($ganacias, 2, '.', ',') }}</p> --}}
-                        <p>CUENTA POR COBRAR SALDO  </p>
-                        
+                        <p>CUENTA POR COBRAR SALDO </p>
+
                     </div>
                     <div class="icon">
 

@@ -19,6 +19,7 @@ class ClienteController extends Controller
     public function index()
     {
         $clientes = Cliente::all();
+        //$clientes = Cliente::where('nombre', 'NOT LIKE', '%GASTO%')->get();
         return view('admin.cliente.index', compact('clientes'));
     }
 

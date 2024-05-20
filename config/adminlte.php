@@ -358,6 +358,12 @@ return [
             'icon' => 'fas fa-fw fa-hand-holding-usd',
             'active' =>['admin/cuenta/23']
         ],
+        [
+            'text' => 'GASTO',
+            'url'  => 'admin/cuenta/129',
+            'icon' => 'fas  fa-shopping-cart',
+            'active' =>['admin/cuenta/129']
+        ],
         
         ['header' => 'Agregar'],
         [
