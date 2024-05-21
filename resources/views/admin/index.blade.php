@@ -79,7 +79,7 @@
             @php
                 $entrada = $entrada + $movimiento->monto;
                 if (str_contains($movimiento->cliente->nombre, 'GASTOS')) {
-                   echo $gasto = $gasto + $movimiento->monto;
+                    $gasto = $gasto + $movimiento->monto;
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7) == 0) {
@@ -96,7 +96,8 @@
                 }
                 if (str_contains($movimiento->cliente->nombre, 'USDT')) {
                     $usdt = $usdt + $movimiento->monto;
-                    $USDTOut = $USDTOut + $movimiento->monto;
+                   
+                    $USDTIn = $USDTIn + $movimiento->monto;
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'BANESCO', 0, 5) == 0) {
@@ -162,7 +163,7 @@
             @php
                 $salida = $salida + $movimiento->monto;
                 if (str_contains($movimiento->cliente->nombre, 'GASTOS')) {
-                   echo $gasto = $gasto + $movimiento->monto;
+                    $gasto = $gasto + $movimiento->monto;
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7) == 0) {
@@ -179,8 +180,8 @@
                 }
                 if (str_contains($movimiento->cliente->nombre, 'USDT')) {
                     $usdt = $usdt - $movimiento->monto;
-
-                    $USDTIn = $USDTIn + $movimiento->monto;
+                    $USDTOut = $USDTOut + $movimiento->monto;
+                   
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'BANESCO', 0, 5) == 0) {
@@ -249,8 +250,8 @@
         $CuentaPagar = $saldo + $gasto;
         $CuentaCobrar =
             $efectivo+
-            $zelleIn +
-            $usdt +
+            $zelle+            
+            $usdt+
             $BanplusCobra +
             $ProvincialCobra +
             $MercantilCobra +
