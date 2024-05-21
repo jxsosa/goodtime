@@ -12,8 +12,8 @@
 
         <div class="card-body ">
             <div class="container ">
-                {!! Form::open(['route' => 'admin.movimientos.store', 'autocomplete' => 'off']) !!}
-
+                {!! Form::open(['route' => 'admin.movimientos.store', 'autocomplete' => 'off', 'onsubmit'=>'return checkSubmit();']) !!}
+                @csrf
                 {!! Form::hidden('user_id', auth()->user()->id) !!}
                 <div class="row row-cols-2">
                     <div class="col">
@@ -158,7 +158,7 @@
 
         </div>
         <div class="col-auto">
-            {!! Form::submit('Crear movimiento', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Crear movimiento', ['class' => 'btn btn-primary', 'id'=>'btsubmit']) !!}
 
             {!! Form::close() !!}
         </div>
@@ -213,5 +213,12 @@
             }
         });
         
+</script>
+<script>
+    function checkSubmit() {
+        document.getElementById("btsubmit").value = "Enviando...";
+        document.getElementById("btsubmit").disabled = true;
+        return true;
+    }
 </script>
 @stop
