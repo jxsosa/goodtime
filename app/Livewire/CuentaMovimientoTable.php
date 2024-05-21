@@ -113,7 +113,7 @@ class CuentaMovimientoTable extends DataTableComponent
     public  function deleteSelected()
     {
         if ($this->getSelected()) {
-            $cuentas = Cuenta::whereIn('id', $this->getSelected())->delete();
+            $cuentas = Movimiento::whereIn('id', $this->getSelected())->delete();
 
             $this->clearSelected();
             // $this->emit('Atencion', 'El registro fue eliminado correctamente');
@@ -127,7 +127,7 @@ class CuentaMovimientoTable extends DataTableComponent
     {
         if ($this->getSelected()) {
 
-            $cuentas = Cuenta::whereIn('id', $this->getSelected())->get();
+            $cuentas = Movimiento::whereIn('id', $this->getSelected())->get();
             $this->clearSelected();
             return Excel::download(new CuentasExport($cuentas), 'cuentamovimiento.xlsx');
         } else {
