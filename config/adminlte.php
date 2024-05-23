@@ -328,12 +328,7 @@ return [
             'icon' => 'fas fa-fw fa-address-book',
             'active' =>['admin/cliente*']
         ],
-        [
-            'text' => 'Cambios',
-            'route'  => 'admin.cambios.index',
-            'icon' => 'fas fa-fw fa-exchange-alt',
-            'active' =>['admin/cambio*']
-        ],
+       
         [
             'text' => 'Cuentas',
             'route'  => 'admin.cuentas.index',
@@ -363,6 +358,12 @@ return [
             'url'  => 'admin/cliente/129',
             'icon' => 'fas  fa-shopping-cart',
             'active' =>['admin/cliente/129']
+        ],
+         [
+            'text' => 'TRANSFERIR',
+            'route'  => 'admin.movimientos.transferir',
+            'icon' => 'fas fa-fw fa-exchange-alt',
+            'active' =>['admin/movimiento/transferir*']
         ],
         
         ['header' => 'Agregar'],

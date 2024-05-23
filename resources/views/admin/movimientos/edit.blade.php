@@ -41,8 +41,8 @@
                 <div class="col">
                     <div class="form-grup">
                         {!! Form::label('monto', 'MONTO $') !!}
-                        {!! Form::text('monto', null, ['class' => 'form-control ','readonly','id'=>'monto']) !!}
-
+                        {{-- {!! Form::text('monto', null, ['class' => 'form-control ','readonly','id'=>'monto']) !!} --}}
+                        {!! Form::text('monto', null, ['class' => 'form-control ','id'=>'monto']) !!}
                         @error('monto')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -210,6 +210,17 @@
                 });
             }
         });
-        
+        $("#monto").on({
+            "focus": function(event) {
+                $(event.target).select();
+            },
+            "keyup": function(event) {
+                $(event.target).val(function(index, value) {
+                    return value.replace(/\D/g, "")
+                        .replace(/([0-9])([0-9]{2})$/, '$1.$2')
+                        .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                });
+            }
+        });
 </script>
 @stop
