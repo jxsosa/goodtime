@@ -79,7 +79,7 @@
             @php
                 $entrada = $entrada + $movimiento->monto;
                 if (str_contains($movimiento->cliente->nombre, 'GASTOS')) {
-                    $gasto = $gasto + $movimiento->monto;
+                    // $gasto = $gasto + $movimiento->monto;
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'EFECTIVO', 0, 7) == 0) {
