@@ -57,7 +57,7 @@
         $zelle = 0;
         $zelleIn = 0;
         $zelleOut = 0;
-        $gasto=0;
+        $gasto = 0;
         $nombreBuscado = 'GASTOS';
         $idEncontrado = 0;
         $clientes = Cliente::all();
@@ -65,13 +65,12 @@
         // Buscar el id correspondiente al nombre buscado
         foreach ($clientes as $cliente) {
             if ($cliente['nombre'] == $nombreBuscado) {
-                 $idEncontrado = $cliente['id'];
+                $idEncontrado = $cliente['id'];
                 break; // Salir del bucle una vez encontrado
             }
         }
-        $movimientos=Movimiento::all();
+        $movimientos = Movimiento::all();
         //$movimientos = Movimiento::where('cliente_id', '<>', $idEncontrado)->get();
-
     @endphp
 
     @foreach ($movimientos as $movimiento)
@@ -96,7 +95,7 @@
                 }
                 if (str_contains($movimiento->cliente->nombre, 'USDT')) {
                     $usdt = $usdt + $movimiento->monto;
-                   
+
                     $USDTIn = $USDTIn + $movimiento->monto;
                 }
 
@@ -181,7 +180,6 @@
                 if (str_contains($movimiento->cliente->nombre, 'USDT')) {
                     $usdt = $usdt - $movimiento->monto;
                     $USDTOut = $USDTOut + $movimiento->monto;
-                   
                 }
 
                 if (substr_compare($movimiento->cuenta->nombre, 'BANESCO', 0, 5) == 0) {
@@ -248,16 +246,9 @@
         //$CuentaCobrar=($EfectivoIn-$EfectivoOut) + ($USDTIn-$USDTOut) + $BanplusCobra+$ProvincialCobra+$MercantilCobra+$VenezuelaCobra+ $BanescoCobra;
         //$CuentaPagar=$EfectivoOut + $USDTOut+$BanplusMonto + $ProvincialMonto + $MercantilMonto + $VenezuelaMonto + $BanescoMonto;
         $CuentaPagar = $saldo + $gasto;
-        $CuentaCobrar =
-            $efectivo+
-            $zelle+            
-            $usdt+
-            $BanplusCobra +
-            $ProvincialCobra +
-            $MercantilCobra +
-            $VenezuelaCobra +
-            $BanescoCobra;
 
+        $MontoDolaresBs = $BanplusCobra + $ProvincialCobra + $MercantilCobra + $VenezuelaCobra + $BanescoCobra;
+        $CuentaCobrar = $efectivo + $zelle + $usdt+ $MontoDolaresBs;
         $ganancias = $CuentaCobrar - $CuentaPagar;
 
     @endphp
@@ -319,7 +310,8 @@
                 <div class="small-box bg-gradient-primary">
                     <div class="inner">
                         <h3>Bs {{ number_format($bs, 2, '.', ',') }}</h3>
-                        <p>TOTAL BS.</p>
+                        <p>TOTAL $:{{ number_format($MontoDolaresBs, 2, '.', ',') }}/TASA:{{ number_format($bs/$MontoDolaresBs, 2, '.', ',') }} </p>
+                        <p></p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-coins"></i>
