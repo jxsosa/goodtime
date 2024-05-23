@@ -125,7 +125,7 @@ class ClienteMovimientoTable extends DataTableComponent
     public  function deleteSelected()
     {
         if ($this->getSelected()) {
-            $clientes = Cliente::whereIn('id', $this->getSelected())->delete();
+            $clientes = Movimiento::whereIn('id', $this->getSelected())->delete();
 
             $this->clearSelected();
             // $this->emit('Atencion', 'El registro fue eliminado correctamente');
@@ -139,7 +139,7 @@ class ClienteMovimientoTable extends DataTableComponent
     {
         if ($this->getSelected()) {
 
-            $clientes = Cliente::whereIn('id', $this->getSelected())->get();
+            $clientes = Movimiento::whereIn('id', $this->getSelected())->get();
             $this->clearSelected();
             return Excel::download(new ClientesExport($clientes), 'clientes.xlsx');
         } else {
