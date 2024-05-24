@@ -32,7 +32,7 @@ class MovimientoController extends Controller
     public function create()
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
-        $cliente = Cliente::pluck('nombre', 'id')->sortBy('nombre');
+        $cliente = Cliente::pluck('nombre', 'id');
         $cambio = Cambio::pluck('nombre', 'id');
         $cuenta = Cuenta::pluck('nombre', 'id');
 
@@ -42,7 +42,7 @@ class MovimientoController extends Controller
     public function efectivo()
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
-        $cliente = Cliente::pluck('nombre', 'id')->sortBy('nombre');
+        $cliente = Cliente::pluck('nombre', 'id');
         $cambio = Cambio::pluck('nombre', 'id');
         $cuenta = Cuenta::pluck('nombre', 'id');
         $nombreBuscado = 'EFECTIVO';
@@ -66,7 +66,7 @@ class MovimientoController extends Controller
     public function usdt()
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
-        $cliente = Cliente::pluck('nombre', 'id')->sortBy('nombre');
+        $cliente = Cliente::pluck('nombre', 'id');
         $cambio = Cambio::pluck('nombre', 'id');
         $cuenta = Cuenta::pluck('nombre', 'id');
         $nombreBuscado = 'USDT';
@@ -91,7 +91,7 @@ class MovimientoController extends Controller
     public function zelle()
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
-        $cliente = Cliente::pluck('nombre', 'id')->sortBy('nombre');
+        $cliente = Cliente::pluck('nombre', 'id');
         $cambio = Cambio::pluck('nombre', 'id');
         $cuenta = Cuenta::pluck('nombre', 'id');
         $nombreBuscado = 'ZELLE';
@@ -230,7 +230,7 @@ class MovimientoController extends Controller
     public function edit(Movimiento $movimiento)
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
-        $cliente = Cliente::pluck('nombre', 'id')->sortBy('nombre');
+        $cliente = Cliente::pluck('nombre', 'id');
         $cambio = Cambio::pluck('nombre', 'id');
         $cuenta = Cuenta::pluck('nombre', 'id');
 
