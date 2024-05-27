@@ -87,14 +87,14 @@
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'USDT', 0, 3) == 0) {
                     $usdt = $usdt + $movimiento->monto;
-                    $USDTIn = $USDTIn + $movimiento->monto;
+                    //$USDTIn = $USDTIn + $movimiento->monto;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'ZELLE', 0, 4) == 0) {
                     $zelle = $zelle + $movimiento->monto;
                     $zelleIn = $zelleIn + $movimiento->monto;
                 }
                 if (str_contains($movimiento->cliente->nombre, 'USDT')) {
-                    $usdt = $usdt + $movimiento->monto;
+                    //$usdt = $usdt + $movimiento->monto;
 
                     $USDTIn = $USDTIn + $movimiento->monto;
                 }
@@ -171,14 +171,14 @@
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'USDT', 0, 3) == 0) {
                     $usdt = $usdt - $movimiento->monto;
-                    $USDTOut = $USDTOut + $movimiento->monto;
+                    //$USDTOut = $USDTOut + $movimiento->monto;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'ZELLE', 0, 4) == 0) {
                     $zelle = $zelle - $movimiento->monto;
                     $zelleOut = $zelleOut + $movimiento->monto;
                 }
                 if (str_contains($movimiento->cliente->nombre, 'USDT')) {
-                    $usdt = $usdt - $movimiento->monto;
+                    //$usdt = $usdt - $movimiento->monto;
                     $USDTOut = $USDTOut + $movimiento->monto;
                 }
 
@@ -242,13 +242,15 @@
         }
         $CuentaPagar = 0;
         $CuentaCobrar = 0;
+        $CuentaUsdt=0;
+        $CuentaUsdt=$USDTOut-$USDTIn;
 
         //$CuentaCobrar=($EfectivoIn-$EfectivoOut) + ($USDTIn-$USDTOut) + $BanplusCobra+$ProvincialCobra+$MercantilCobra+$VenezuelaCobra+ $BanescoCobra;
         //$CuentaPagar=$EfectivoOut + $USDTOut+$BanplusMonto + $ProvincialMonto + $MercantilMonto + $VenezuelaMonto + $BanescoMonto;
         $CuentaPagar = $saldo + $gasto;
 
         $MontoDolaresBs = $BanplusCobra + $ProvincialCobra + $MercantilCobra + $VenezuelaCobra + $BanescoCobra;
-        $CuentaCobrar = $efectivo + $zelle + $usdt+ $MontoDolaresBs;
+        $CuentaCobrar = $efectivo + $zelle + $usdt+$CuentaUsdt+ $MontoDolaresBs;
         $ganancias = $CuentaCobrar - $CuentaPagar;
 
     @endphp
@@ -338,7 +340,7 @@
             <div class="col-sm-3">
                 <div class="small-box bg-gradient-warning">
                     <div class="inner">
-                        <h3>$ {{ number_format($usdt, 2, '.', ',') }}</h3>
+                        <h3>$ {{ number_format($usdt+$CuentaUsdt, 2, '.', ',') }}</h3>
                         <p>USDT</p>
                     </div>
                     <div class="icon">
