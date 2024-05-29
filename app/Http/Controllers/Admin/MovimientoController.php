@@ -33,8 +33,8 @@ class MovimientoController extends Controller
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
         $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');;
-        $cambio = Cambio::pluck('nombre', 'id');
-        $cuenta = Cuenta::pluck('nombre', 'id');
+        $cambio = Cambio::orderBy('nombre')->pluck('nombre', 'id');
+        $cuenta = Cuenta::orderBy('nombre')->pluck('nombre', 'id');
 
         return view('admin.movimientos.create', compact('cliente', 'cambio', 'cuenta'));
     }
@@ -43,8 +43,8 @@ class MovimientoController extends Controller
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
         $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');
-        $cambio = Cambio::pluck('nombre', 'id');
-        $cuenta = Cuenta::pluck('nombre', 'id');
+        $cambio = Cambio::orderBy('nombre')->pluck('nombre', 'id');
+        $cuenta = Cuenta::orderBy('nombre')->pluck('nombre', 'id');
         $nombreBuscado = 'EFECTIVO';
         $idEncontrado = 0;
         $cuentas2 = Cuenta::all();
@@ -67,8 +67,8 @@ class MovimientoController extends Controller
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
         $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');
-        $cambio = Cambio::pluck('nombre', 'id');
-        $cuenta = Cuenta::pluck('nombre', 'id');
+        $cambio = Cambio::orderBy('nombre')->pluck('nombre', 'id');
+        $cuenta = Cuenta::orderBy('nombre')->pluck('nombre', 'id');
         $nombreBuscado = 'USDT';
         $idEncontrado = 0;
         $cuentas2 = Cuenta::all();
@@ -92,8 +92,8 @@ class MovimientoController extends Controller
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
         $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');
-        $cambio = Cambio::pluck('nombre', 'id');
-        $cuenta = Cuenta::pluck('nombre', 'id');
+        $cambio = Cambio::orderBy('nombre')->pluck('nombre', 'id');
+        $cuenta = Cuenta::orderBy('nombre')->pluck('nombre', 'id');
         $nombreBuscado = 'ZELLE';
         $idEncontrado = 0;
         $cuentas2 = Cuenta::all();
@@ -116,8 +116,8 @@ class MovimientoController extends Controller
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
         $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');
-        $cambio = Cambio::pluck('nombre', 'id');
-        $cuenta = Cuenta::pluck('nombre', 'id');
+        $cambio = Cambio::orderBy('nombre')->pluck('nombre', 'id');
+        $cuenta = Cuenta::orderBy('nombre')->orderBy('nombre')->pluck('nombre', 'id');
         $nombreBuscado = 'GANANCIAS';
         $idEncontrado = 0;
         $cuentas2 = Cuenta::all();
@@ -254,9 +254,9 @@ class MovimientoController extends Controller
     public function edit(Movimiento $movimiento)
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
-        $cliente = Cliente::pluck('nombre', 'id');
-        $cambio = Cambio::pluck('nombre', 'id');
-        $cuenta = Cuenta::pluck('nombre', 'id');
+        $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');
+        $cambio = Cambio::orderBy('nombre')->pluck('nombre', 'id');
+        $cuenta = Cuenta::orderBy('nombre')->pluck('nombre', 'id');
 
 
 
