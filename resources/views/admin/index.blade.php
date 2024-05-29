@@ -50,6 +50,11 @@
         $MercantilBsIn = 0;
         $ProvincialBsIn = 0;
         $BanplusBsIn = 0;
+        $BanescoBsOut=0;
+        $VenezuelaBsOut = 0;
+        $MercantilBsOut = 0;
+        $ProvincialBsOut = 0;
+        $BanplusBsOut = 0;
         $EfectivoIn = 0;
         $USDTIn = 0;
         $EfectivoOut = 0;
@@ -58,6 +63,7 @@
         $zelleIn = 0;
         $zelleOut = 0;
         $gasto = 0;
+        
         $nombreBuscado = 'GASTOS';
         $idEncontrado = 0;
         $clientes = Cliente::all();
@@ -186,26 +192,51 @@
                     $BanescoMonto = $BanescoMonto - $movimiento->monto;
                     $banesco = $banesco - $movimiento->bs;
                     $bs = $bs - $movimiento->bs;
+                    $BanescoBsOut = $BanescoBsOut + $movimiento->bs;
+                    if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
+                        $MontoTasaBanesco = $MontoTasaBanesco + $movimiento->bs / $movimiento->tasa;
+                    }
+                    $tasaBanesco = $BanescoBsOut / $MontoTasaBanesco;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'VENEZUELA', 0, 8) == 0) {
                     $VenezuelaMonto = $VenezuelaMonto - $movimiento->monto;
                     $venezuela = $venezuela - $movimiento->bs;
                     $bs = $bs - $movimiento->bs;
+                    $VenezuelaBsOut = $VenezuelaBsOut + $movimiento->bs;
+                    if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
+                        $MontoTasaVenezuela = $MontoTasaVenezuela + $movimiento->bs / $movimiento->tasa;
+                    }
+                    $tasaVenezuela = $VenezuelaBsOut / $MontoTasaVenezuela;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'MERCANTIL', 0, 8) == 0) {
                     $MercantilMonto = $MercantilMonto - $movimiento->monto;
                     $mercantil = $mercantil - $movimiento->bs;
                     $bs = $bs - $movimiento->bs;
+                    $MercantilBsOut = $MercantilBsOut + $movimiento->bs;
+                    if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
+                        $MontoTasaMercantil = $MontoTasaMercantil + $movimiento->bs / $movimiento->tasa;
+                    }
+                    $tasaMercantil = $MercantilBsOut / $MontoTasaMercantil;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'PROVINCIAL', 0, 9) == 0) {
                     $ProvincialMonto = $ProvincialMonto - $movimiento->monto;
                     $provincial = $provincial - $movimiento->bs;
                     $bs = $bs - $movimiento->bs;
+                    $ProvincialBsOut = $ProvincialBsOut + $movimiento->bs;
+                    if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
+                        $MontoTasaProvincial = $MontoTasaProvincial + $movimiento->bs / $movimiento->tasa;
+                    }
+                    $tasaProvincial = $ProvincialBsOut / $MontoTasaProvincial;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'BANPLUS', 0, 6) == 0) {
                     $BanplusMonto = $BanplusMonto - $movimiento->monto;
                     $banplus = $banplus - $movimiento->bs;
                     $bs = $bs - $movimiento->bs;
+                    $BanplusBsOut = $BanplusBsOut + $movimiento->bs;
+                    if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
+                        $MontoTasaBanplus = $MontoTasaBanplus + $movimiento->bs / $movimiento->tasa;
+                    }
+                    $tasaBanplus = $BanplusBsOut / $MontoTasaBanplus;
                 }
 
             @endphp
@@ -250,7 +281,7 @@
         $CuentaPagar = $saldo + $gasto;
 
         $MontoDolaresBs = $BanplusCobra + $ProvincialCobra + $MercantilCobra + $VenezuelaCobra + $BanescoCobra;
-        $CuentaCobrar = $efectivo + $zelle + $usdt+$CuentaUsdt+ $MontoDolaresBs;
+        $CuentaCobrar = $efectivo + $zelle + $usdt+ $MontoDolaresBs;
         $ganancias = $CuentaCobrar - $CuentaPagar;
 
     @endphp
