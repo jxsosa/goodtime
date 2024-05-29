@@ -14,7 +14,7 @@ Route::get('movimiento/efectivo', [AdminMovimientoController::class, 'efectivo']
 Route::get('movimiento/usdt', [AdminMovimientoController::class, 'usdt'])->name('admin.movimientos.usdt');
 Route::get('movimiento/zelle', [AdminMovimientoController::class, 'zelle'])->name('admin.movimientos.zelle');
 Route::get('movimiento/transferir', [AdminMovimientoController::class, 'transferir'])->name('admin.movimientos.transferir');
-Route::get('movimiento/store2', [AdminMovimientoController::class, 'store2'])->name('admin.movimientos.store2');
+Route::get('movimiento/ganancias', [AdminMovimientoController::class, 'ganancias'])->name('admin.movimientos.ganancias');
 
 Route::resource('cliente', ClienteController::class)->names('admin.cliente');
 

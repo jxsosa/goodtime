@@ -32,7 +32,7 @@ class MovimientoController extends Controller
     public function create()
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
-        $cliente = Cliente::pluck('nombre', 'id');
+        $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');;
         $cambio = Cambio::pluck('nombre', 'id');
         $cuenta = Cuenta::pluck('nombre', 'id');
 
@@ -42,7 +42,7 @@ class MovimientoController extends Controller
     public function efectivo()
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
-        $cliente = Cliente::pluck('nombre', 'id');
+        $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');
         $cambio = Cambio::pluck('nombre', 'id');
         $cuenta = Cuenta::pluck('nombre', 'id');
         $nombreBuscado = 'EFECTIVO';
@@ -66,7 +66,7 @@ class MovimientoController extends Controller
     public function usdt()
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
-        $cliente = Cliente::pluck('nombre', 'id');
+        $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');
         $cambio = Cambio::pluck('nombre', 'id');
         $cuenta = Cuenta::pluck('nombre', 'id');
         $nombreBuscado = 'USDT';
@@ -91,7 +91,7 @@ class MovimientoController extends Controller
     public function zelle()
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
-        $cliente = Cliente::pluck('nombre', 'id');
+        $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');
         $cambio = Cambio::pluck('nombre', 'id');
         $cuenta = Cuenta::pluck('nombre', 'id');
         $nombreBuscado = 'ZELLE';
@@ -112,12 +112,36 @@ class MovimientoController extends Controller
 
         return view('admin.movimientos.zelle', compact('cliente', 'cambio', 'cuenta', 'CuentaDefault'));
     }
+    public function ganancias()
+    {
+        ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
+        $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');
+        $cambio = Cambio::pluck('nombre', 'id');
+        $cuenta = Cuenta::pluck('nombre', 'id');
+        $nombreBuscado = 'GANANCIAS';
+        $idEncontrado = 0;
+        $cuentas2 = Cuenta::all();
+        //$resultado =array_column($cuenta2, 'nombre', 'id');
+        $CuentaDefault = 0;
+
+        // Buscar el id correspondiente al nombre buscado
+        foreach ($cuentas2 as $cuenta2) {
+            if ($cuenta2['nombre'] == $nombreBuscado) {
+                $CuentaDefault = $cuenta2['id'];
+                break; // Salir del bucle una vez encontrado
+            }
+        }
+
+        //return    $idEncontrado;
+
+        return view('admin.movimientos.ganancias', compact('cliente', 'cambio', 'cuenta', 'CuentaDefault'));
+    }
     public function transferir()
     {
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
         //$cliente = Cliente::pluck('nombre', 'id')->sortBy('nombre');
         //$cambio = Cambio::pluck('nombre', 'id');
-        $cuenta = Cuenta::pluck('nombre', 'id');
+        $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');
         $nombreBuscado = 'ZELLE';
         $idEncontrado = 0;
         $cuentas2 = Cuenta::all();

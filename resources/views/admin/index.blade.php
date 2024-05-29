@@ -312,7 +312,7 @@
                 <div class="small-box bg-gradient-primary">
                     <div class="inner">
                         <h3>Bs {{ number_format($bs, 2, '.', ',') }}</h3>
-                        <p>TOTAL $:{{ number_format($MontoDolaresBs, 2, '.', ',') }}/TASA:{{ number_format($bs/$MontoDolaresBs, 2, '.', ',') }} </p>
+                        <p>TOTAL $:{{ number_format($MontoDolaresBs, 2, '.', ',') }}/TASA:{{$retVal = ($MontoDolaresBs==0) ? '0' : number_format($bs/$MontoDolaresBs, 2, '.', ',') ;  }} </p>
                         <p></p>
                     </div>
                     <div class="icon">

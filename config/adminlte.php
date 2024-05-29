@@ -387,6 +387,11 @@ return [
             'icon_color' => 'cyan',
             'route'  => 'admin.movimientos.zelle',
         ],
+        [
+            'text'       => 'GANANCIAS',
+            'icon_color' => 'lime',
+            'route'  => 'admin.movimientos.ganancias',
+        ],
         // [
         //     'text'       => 'Cambios',
         //     'icon_color' => 'cyan',
