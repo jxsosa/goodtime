@@ -55,6 +55,16 @@
         $MercantilBsOut = 0;
         $ProvincialBsOut = 0;
         $BanplusBsOut = 0;
+        $MontoTasaBanescoOut=0;
+        $MontoTasaVenezuelaOut=0;
+        $MontoTasaMercantilOut=0;
+        $MontoTasaProvincialOut=0;
+        $MontoTasaBanplusOut=0;
+        $tasaBanescoOut=0;
+        $tasaVenezuelaOut=0;
+        $tasaMercantilOut=0;
+        $tasaProvincialOut=0;
+        $tasaBanplusOut=0;
         $EfectivoIn = 0;
         $USDTIn = 0;
         $EfectivoOut = 0;
@@ -194,9 +204,9 @@
                     $bs = $bs - $movimiento->bs;
                     $BanescoBsOut = $BanescoBsOut + $movimiento->bs;
                     if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
-                        $MontoTasaBanesco = $MontoTasaBanesco + $movimiento->bs / $movimiento->tasa;
+                        $MontoTasaBanescoOut = $MontoTasaBanescoOut + $movimiento->bs / $movimiento->tasa;
                     }
-                    $tasaBanesco = $BanescoBsOut / $MontoTasaBanesco;
+                    $tasaBanescoOut = $BanescoBsOut / $MontoTasaBanescoOut;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'VENEZUELA', 0, 8) == 0) {
                     $VenezuelaMonto = $VenezuelaMonto - $movimiento->monto;
@@ -204,9 +214,9 @@
                     $bs = $bs - $movimiento->bs;
                     $VenezuelaBsOut = $VenezuelaBsOut + $movimiento->bs;
                     if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
-                        $MontoTasaVenezuela = $MontoTasaVenezuela + $movimiento->bs / $movimiento->tasa;
+                        $MontoTasaVenezuelaOut = $MontoTasaVenezuelaOut + $movimiento->bs / $movimiento->tasa;
                     }
-                    $tasaVenezuela = $VenezuelaBsOut / $MontoTasaVenezuela;
+                    $tasaVenezuelaOut = $VenezuelaBsOut / $MontoTasaVenezuelaOut;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'MERCANTIL', 0, 8) == 0) {
                     $MercantilMonto = $MercantilMonto - $movimiento->monto;
@@ -214,9 +224,9 @@
                     $bs = $bs - $movimiento->bs;
                     $MercantilBsOut = $MercantilBsOut + $movimiento->bs;
                     if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
-                        $MontoTasaMercantil = $MontoTasaMercantil + $movimiento->bs / $movimiento->tasa;
+                        $MontoTasaMercantilOut = $MontoTasaMercantilOut + $movimiento->bs / $movimiento->tasa;
                     }
-                    $tasaMercantil = $MercantilBsOut / $MontoTasaMercantil;
+                    $tasaMercantilOut = $MercantilBsOut / $MontoTasaMercantilOut;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'PROVINCIAL', 0, 9) == 0) {
                     $ProvincialMonto = $ProvincialMonto - $movimiento->monto;
@@ -224,9 +234,9 @@
                     $bs = $bs - $movimiento->bs;
                     $ProvincialBsOut = $ProvincialBsOut + $movimiento->bs;
                     if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
-                        $MontoTasaProvincial = $MontoTasaProvincial + $movimiento->bs / $movimiento->tasa;
+                        $MontoTasaProvincialOut = $MontoTasaProvincialOut + $movimiento->bs / $movimiento->tasa;
                     }
-                    $tasaProvincial = $ProvincialBsOut / $MontoTasaProvincial;
+                    $tasaProvincialOut = $ProvincialBsOut / $MontoTasaProvincialOut;
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'BANPLUS', 0, 6) == 0) {
                     $BanplusMonto = $BanplusMonto - $movimiento->monto;
@@ -234,9 +244,9 @@
                     $bs = $bs - $movimiento->bs;
                     $BanplusBsOut = $BanplusBsOut + $movimiento->bs;
                     if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
-                        $MontoTasaBanplus = $MontoTasaBanplus + $movimiento->bs / $movimiento->tasa;
+                        $MontoTasaBanplusOut = $MontoTasaBanplusOut + $movimiento->bs / $movimiento->tasa;
                     }
-                    $tasaBanplus = $BanplusBsOut / $MontoTasaBanplus;
+                    $tasaBanplusOut = $BanplusBsOut / $MontoTasaBanplusOut;
                 }
 
             @endphp
@@ -246,6 +256,11 @@
 
         $saldo = $entrada - $salida;
 
+        $tasaBanesco=($tasaBanesco+ $tasaBanescoOut)/2;
+        $tasaVenezuela=($tasaVenezuela+ $tasaVenezuelaOut)/2;
+        $tasaMercantil=($tasaMercantil+ $tasaMercantilOut)/2;
+        $tasaProvincial=($tasaProvincial+ $tasaProvincialOut)/2;
+        $tasaBanplus=($tasaBanplus+ $tasaBanplusOut)/2;        
         if ($tasaBanesco == 0) {
             $BanescoCobra = 0;
         } else {
