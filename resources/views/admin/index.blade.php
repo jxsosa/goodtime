@@ -125,7 +125,7 @@
                     if ($movimiento->bs != 0 and $movimiento->tasa != 0) {
                         $MontoTasaBanesco = $MontoTasaBanesco + $movimiento->bs / $movimiento->tasa;
                     }
-                    $tasaBanesco = $BanescoBsIn / $MontoTasaBanesco;
+                   $tasaBanesco = $BanescoBsIn / $MontoTasaBanesco;
                     //echo "-". $tasaBanesco ."-";
                 }
                 if (substr_compare($movimiento->cuenta->nombre, 'VENEZUELA', 0, 8) == 0) {
@@ -256,11 +256,11 @@
 
         $saldo = $entrada - $salida;
 
-        $tasaBanesco=($tasaBanesco+ $tasaBanescoOut)/2;
-        $tasaVenezuela=($tasaVenezuela+ $tasaVenezuelaOut)/2;
-        $tasaMercantil=($tasaMercantil+ $tasaMercantilOut)/2;
-        $tasaProvincial=($tasaProvincial+ $tasaProvincialOut)/2;
-        $tasaBanplus=($tasaBanplus+ $tasaBanplusOut)/2;        
+        // $tasaBanesco=($tasaBanesco+ $tasaBanescoOut)/2;
+        // $tasaVenezuela=($tasaVenezuela+ $tasaVenezuelaOut)/2;
+        // $tasaMercantil=($tasaMercantil+ $tasaMercantilOut)/2;
+        // $tasaProvincial=($tasaProvincial+ $tasaProvincialOut)/2;
+        // $tasaBanplus=($tasaBanplus+ $tasaBanplusOut)/2;        
         if ($tasaBanesco == 0) {
             $BanescoCobra = 0;
         } else {
@@ -332,7 +332,7 @@
 
                         <i class="fas fa-dollar-sign"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{{ url('./admin/cuenta') }}" class="small-box-footer">
                         More info <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
@@ -346,7 +346,7 @@
                     </div>
                     <div class="icon">
                         <i class="fas fa-dollar-sign "></i>
-                    </div><i <a href="#" class="small-box-footer">
+                    </div> <a href="{{ url('./admin/cliente') }}" class="small-box-footer">
                         More info <i class="fas fa-arrow-circle-right"></i>
                         </a>
                 </div>
