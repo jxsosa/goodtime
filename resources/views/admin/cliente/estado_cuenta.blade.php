@@ -90,7 +90,7 @@
                     <td class="text-center"><small>{{ number_format($movimiento->bs, 2, '.', ',') }}</small></td>
                     <td class="text-center"><small>{{ number_format($movimiento->tasa, 2, '.', ',') }}</small></td>
                     <td class="text-center">
-                        <small>${{ $monto = $movimiento->tipo === 'entrada' ? number_format($movimiento->monto, 2, '.', ',') : number_format($movimiento->monto * -1, 2, '.', ',') }}</small>
+                        <small>${{ $monto = $movimiento->tipo === 'entrada' ? number_format($movimiento->monto, 2, '.', ',') : number_format($movimiento->monto*-1, 2, '.', ',') }}</small>
                     </td>
                     {{-- <td class="text-center">$ {{$movimiento->monto }}</td> --}}
                     {{-- <td class="text-center">${{ $MontoSaldo=$MontoSaldo+ $monto}}</td> --}}
