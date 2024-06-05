@@ -10,6 +10,10 @@ use App\Models\Movimiento;
 use Illuminate\Support\Facades\Redirect;
 use PhpParser\Node\Stmt\Return_;
 use App\Http\Requests\ValidaDatosCliente;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use PDF;
 
 class ClienteController extends Controller
 {
@@ -117,4 +121,14 @@ class ClienteController extends Controller
 
 
     }
+    public function estado_cuenta($cliente)
+{
+    $cliente = Cliente::find($cliente);
+    $movimientos = $cliente->movimiento()->orderBy('created_at', 'desc')->get(); // Supongamos que tienes una relación en el modelo Cliente
+
+    $pdf = FacadePdf::loadView('admin.cliente.estado_cuenta', compact('cliente', 'movimientos'));
+
+    // return $pdf->download('estado_cuenta.pdf');//descagar automatico
+    return $pdf->stream('estado_cuenta.pdf');//muetra el pdf en la web
+}
 }

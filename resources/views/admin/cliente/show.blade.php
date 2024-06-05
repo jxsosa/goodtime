@@ -3,9 +3,14 @@
 
 @section('content_header')
     <div class="">
-        <h1>{{ $cliente->nombre }}</h1>
+        <h1>{{ $cliente->nombre }}  <a href="{{ route('admin.cliente.estado_cuenta', ['cliente' => $cliente->id]) }}" target="_blank" class="btn btn-outline-danger">
+            <i class="glyphicon glyphicon-file"></i> Estado de Cuenta PDF
+        </a></h1>
         <p>{{ $cliente->email }} TLF:
             {{ $cliente->telefono }}</p>
+            {{-- <a href="{{ route('admin.cliente.estado_cuenta', ['cliente' => $cliente->id]) }}" target="_blank">Ver PDF</a> --}}
+           
+            
     </div>
     @php
         $entrada = 0;
