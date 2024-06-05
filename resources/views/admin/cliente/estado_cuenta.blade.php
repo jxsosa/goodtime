@@ -90,7 +90,7 @@ $MontoSaldo=0;
                     <td class="small"><small>{{ $movimiento->cuenta->nombre }}</small></td>
                     <td class="text-center">{{ number_format($movimiento->bs, 2, '.', ',')}}</td>
                     <td class="text-center">{{ number_format($movimiento->tasa, 2, '.', ',')}}</td>
-                    <td class="text-center">$ {{$monto = ($movimiento->tipo==='entrada') ? number_format($movimiento->monto, 2, '.', ',') : number_format($movimiento->monto*-1, 2, '.', ',') ;  }}</td>
+                    <td class="text-center">${{$monto = ($movimiento->tipo==='entrada') ? number_format($movimiento->monto, 2, '.', ',') : number_format($movimiento->monto*-1, 2, '.', ',') ;  }}</td>
                     {{-- <td class="text-center">$ {{$movimiento->monto }}</td> --}}
                     {{-- <td class="text-center">${{ $MontoSaldo=$MontoSaldo+ $monto}}</td> --}}
                     @if ($loop->first)
