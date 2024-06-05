@@ -96,14 +96,14 @@
                     {{-- <td class="text-center">${{ $MontoSaldo=$MontoSaldo+ $monto}}</td> --}}
                     @if ($loop->first)
                         {{-- Esto es la primera iteración --}}
-                        <td class="text-center">${{ number_format($saldo, 2, '.', ',') }}</td>
+                        <td class="text-center"><small>${{ number_format($saldo, 2, '.', ',') }}</small></td>
                         @php
                             $montoFormateado = (float) str_replace(',', '', $monto);
 
                             $saldo = $saldo - $montoFormateado;
                         @endphp
                     @else
-                        <td class="text-center">${{ number_format($saldo, 2, '.', ',') }}</td>
+                        <td class="text-center"><small>${{ number_format($saldo, 2, '.', ',') }}</small></td>
                         @php
                             //  $monto = number_format($monto, 2); // Formatea el valor con 2 decimales
                             $montoFormateado = (float) str_replace(',', '', $monto);
