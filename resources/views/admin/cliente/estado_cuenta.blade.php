@@ -90,20 +90,38 @@
                     <td class="text-center"><small>{{ number_format($movimiento->bs, 2, '.', ',') }}</small></td>
                     <td class="text-center"><small>{{ number_format($movimiento->tasa, 2, '.', ',') }}</small></td>
                     <td class="text-center">
-                        <small>${{ $monto = $movimiento->tipo === 'entrada' ? number_format($movimiento->monto, 2, '.', ',') : number_format($movimiento->monto*-1, 2, '.', ',') }}</small>
+                        @if ($movimiento->tipo === 'entrada')
+                            <small>${{ $monto = $movimiento->tipo === 'entrada' ? number_format($movimiento->monto, 2, '.', ',') : number_format($movimiento->monto * -1, 2, '.', ',') }}</small>
+                        @else
+                            <small
+                                class=" text-danger">${{ $monto = $movimiento->tipo === 'entrada' ? number_format($movimiento->monto, 2, '.', ',') : number_format($movimiento->monto * -1, 2, '.', ',') }}</small>
+                        @endif
+
                     </td>
                     {{-- <td class="text-center">$ {{$movimiento->monto }}</td> --}}
                     {{-- <td class="text-center">${{ $MontoSaldo=$MontoSaldo+ $monto}}</td> --}}
                     @if ($loop->first)
                         {{-- Esto es la primera iteración --}}
-                        <td class="text-center"><small>${{ number_format($saldo, 2, '.', ',') }}</small></td>
+                        @if ($saldo >= 0)
+                            <td class="text-center"><small>${{ number_format($saldo, 2, '.', ',') }}</small></td>
+                        @else
+                            <td class="text-center text-danger ">
+                                <small>${{ number_format($saldo, 2, '.', ',') }}</small></td>
+                        @endif
+
                         @php
                             $montoFormateado = (float) str_replace(',', '', $monto);
 
                             $saldo = $saldo - $montoFormateado;
                         @endphp
                     @else
-                        <td class="text-center"><small>${{ number_format($saldo, 2, '.', ',') }}</small></td>
+                        @if ($saldo >= 0)
+                            <td class="text-center"><small>${{ number_format($saldo, 2, '.', ',') }}</small></td>
+                        @else
+                            <td class="text-center  ">
+                                <small class="text-danger">${{ number_format($saldo, 2, '.', ',') }}</small></td>
+                        @endif
+
                         @php
                             //  $monto = number_format($monto, 2); // Formatea el valor con 2 decimales
                             $montoFormateado = (float) str_replace(',', '', $monto);
