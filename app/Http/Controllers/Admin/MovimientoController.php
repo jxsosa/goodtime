@@ -141,7 +141,7 @@ class MovimientoController extends Controller
         ///SE UTILIZA PLUCK PAR DARLE FORMATO DE ARRAY Y COLLETIVE LO ENTINEDA
         //$cliente = Cliente::pluck('nombre', 'id')->sortBy('nombre');
         //$cambio = Cambio::pluck('nombre', 'id');
-        $cliente = Cliente::orderBy('nombre')->pluck('nombre', 'id');
+        $cuenta = Cuenta::orderBy('nombre')->pluck('nombre', 'id');
         $nombreBuscado = 'ZELLE';
         $idEncontrado = 0;
         $cuentas2 = Cuenta::all();
