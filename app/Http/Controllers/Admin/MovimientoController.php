@@ -219,7 +219,7 @@ class MovimientoController extends Controller
                     'tipo' => $TipoDesino,
                     'fecha_entrega' => $FechaEntrega,
                     'user_id' => $user,
-                    'cambio_id' => '1',
+                    'cambio_id' => '5',
                     'cliente_id' => $cliente,
                     'cuenta_id' => $CuentaDestino
                 ],
