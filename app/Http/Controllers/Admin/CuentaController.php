@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cuenta;
 use App\Models\Movimiento;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 
 class CuentaController extends Controller
 {
@@ -78,4 +79,16 @@ class CuentaController extends Controller
         $cuentum->delete();
         return redirect()->route('admin.cuentas.index')->with('info', 'La cuenta se elimino con éxito');
     }
+   
+    public function estado_cuenta($cuentum)
+    {
+        $cuenta= Cuenta::find($cuentum);
+        $movimientos = $cuenta->movimientos()->orderBy('created_at', 'desc')->get(); // Supongamos que tienes una relación en el modelo Cliente
+    
+        $pdf = FacadePdf::loadView('admin.cuentas.estado_cuenta', compact('cuenta', 'movimientos'));
+    
+        // return $pdf->download('estado_cuenta.pdf');//descagar automatico
+        return $pdf->stream('estado_cuenta.pdf');//muetra el pdf en la web
+    }
+    
 }

@@ -16,6 +16,7 @@ Route::get('movimiento/zelle', [AdminMovimientoController::class, 'zelle'])->nam
 Route::get('movimiento/transferir', [AdminMovimientoController::class, 'transferir'])->name('admin.movimientos.transferir');
 Route::get('movimiento/ganancias', [AdminMovimientoController::class, 'ganancias'])->name('admin.movimientos.ganancias');
 Route::get('cliente/estado_cuenta/{cliente}', [ClienteController::class, 'estado_cuenta'])->name('admin.cliente.estado_cuenta');
+Route::get('cuenta/estado_cuenta/{cuentum}', [CuentaController::class, 'estado_cuenta'])->name('admin.cuenta.estado_cuenta');
 
 Route::resource('cliente', ClienteController::class)->names('admin.cliente');
 

@@ -2,7 +2,9 @@
 @section('title', 'GoodTime')
 
 @section('content_header')
-    <h1>Mostrar detalle de las cuenta: {{ $cuentum->nombre }}</h1>
+    <h1>Mostrar detalle de las cuenta: {{ $cuentum->nombre }} <a href="{{ route('admin.cuenta.estado_cuenta', ['cuentum' => $cuentum->id]) }}" target="_blank" class="btn btn-outline-danger">
+        <i class="glyphicon glyphicon-file"></i> Estado de Cuenta PDF
+    </a></h1>
     @php
         $entrada = 0;
         $salida = 0;

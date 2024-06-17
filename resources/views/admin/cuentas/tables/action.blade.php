@@ -6,6 +6,8 @@
     <a href="{{route('admin.cuentas.edit', [
         'cuentum'=>$id,
     ])}}" class="btn btn-primary btn-sm">Editar</a>
+    <a href="{{ route('admin.cuenta.estado_cuenta', ['cuentum' => $id]) }}"  class="btn btn-sm btn-outline-danger">
+        <i class="glyphicon glyphicon-file"></i>PDF</a>
 
     <form class="d-inline p-3" action="{{route('admin.cuentas.destroy', [
         'cuentum'=>$id,
