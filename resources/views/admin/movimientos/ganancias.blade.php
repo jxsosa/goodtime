@@ -132,7 +132,7 @@
 
         </div>
         <div class="col-auto">
-            {!! Form::submit('Crear ZELLE', ['class' => 'btn btn-primary', 'id'=>'btsubmit']) !!}
+            {!! Form::submit('Crear Movimiento', ['class' => 'btn btn-primary', 'id'=>'btsubmit']) !!}
 
             {!! Form::close() !!}
         </div>
