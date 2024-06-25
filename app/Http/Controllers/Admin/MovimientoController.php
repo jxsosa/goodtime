@@ -191,7 +191,8 @@ class MovimientoController extends Controller
         $user = $request->input('user_id');
         $cliente = 6;
         $request->merge(['monto' => $montoFormateado]);
-
+        $comision=$bs*(0.3/100); //comisiones bancarias
+        $ComisionMonto=$comision/$tasa;
         if ($request->has('cuenta_id2')) {
             // La variable 'mi_variable' se envió desde el formulario
             // Realiza la tarea específica aquí
@@ -232,8 +233,49 @@ class MovimientoController extends Controller
             
         } else {
             // La variable no se envió
-            // Realiza otra tarea o muestra un mensaje de error
-            $movimiento = Movimiento::create($request->all());
+
+            if ($request->input('otros')=='si' and $request->input('tipo')=='salida') {
+
+                $datos = [
+                    [
+                        'bs' => $bs,
+                        'tasa' => $tasa,
+                        'monto' => $monto,
+                        'ref' => $ref,
+                        'descripcion' => $descripcion,
+                        'tipo' => $TipoOrigen,
+                        'fecha_entrega' => $FechaEntrega,
+                        'user_id' => $user,
+                        'cambio_id' => $request->input('cambio_id'),
+                        'cliente_id' => $request->input('cliente_id'),
+                        'cuenta_id' => $request->input('cuenta_id')    
+                    ],
+                    [
+                        'bs' => $comision,
+                        'tasa' => $tasa,
+                        'monto' => $ComisionMonto,
+                        'ref' => $ref,
+                        'descripcion' => 'OTROS BANCOS',
+                        'tipo' => $TipoOrigen,
+                        'fecha_entrega' => $FechaEntrega,
+                        'user_id' => $user,
+                        'cambio_id' => '6',
+                        'cliente_id' => '129',//id de los gastos 
+                        'cuenta_id' => $request->input('cuenta_id')
+                    ],
+                    // Agrega más registros según tus necesidades
+                ];
+                
+                foreach ($datos as $registro) {
+                    $movimiento =Movimiento::create($registro);
+                }
+                
+            } else {
+                // Realiza otra tarea o muestra un mensaje de error
+                $movimiento = Movimiento::create($request->all());
+            }
+            
+            
         }
        
         return redirect()->route('admin.movimientos.index', compact('movimiento'))->with('info', 'La movimientos se registro con éxito');

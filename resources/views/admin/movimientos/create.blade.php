@@ -93,6 +93,7 @@
                             @enderror
                         </div>
                     </div>
+                   
 
 
                 </div>
@@ -147,6 +148,21 @@
                             ]) !!}
 
                             @error('fecha_entrega')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col ">
+                        <div class="form-grup align-items-center">
+                            {!! Form::label('otros', 'OTROS BANCOS') !!}
+                            <label class=" m-3">
+                                {!! Form::radio('otros', 'no', true) !!} NO
+                            </label>
+                            <label class="m-3">
+                                {!! Form::radio('otros', 'si') !!} SI
+                            </label>
+
+                            @error('tipo')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
