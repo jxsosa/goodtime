@@ -191,8 +191,7 @@ class MovimientoController extends Controller
         $user = $request->input('user_id');
         $cliente = 6;
         $request->merge(['monto' => $montoFormateado]);
-        $comision=$bs*(0.3/100); //comisiones bancarias
-        $ComisionMonto=$comision/$tasa;
+        
         if ($request->has('cuenta_id2')) {
             // La variable 'mi_variable' se envió desde el formulario
             // Realiza la tarea específica aquí
@@ -235,7 +234,8 @@ class MovimientoController extends Controller
             // La variable no se envió
 
             if ($request->input('otros')=='si' and $request->input('tipo')=='salida') {
-
+                $comision=$bs*(0.3/100); //comisiones bancarias
+                $ComisionMonto=$comision/$tasa;
                 $datos = [
                     [
                         'bs' => $bs,
