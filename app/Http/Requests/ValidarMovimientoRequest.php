@@ -27,8 +27,8 @@ class ValidarMovimientoRequest extends FormRequest
     public function rules()
     {
         $rules =[
-            'bs' => 'required',
-            'tasa' => 'required',
+            // 'bs' => 'required',
+            // 'tasa' => 'required',
             'cliente_id' => 'required',
             'cuenta_id' => 'required',
             'cambio_id' => 'required',
