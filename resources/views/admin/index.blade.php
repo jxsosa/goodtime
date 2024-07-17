@@ -378,7 +378,7 @@
                     <div class="icon">
                         <i class="fas fa-hand-holding-usd"></i>
                     </div>
-                    <a href="#" class="small-box-footer">
+                    <a href="{{ url('./admin/cuenta/1') }}" class="small-box-footer">
                         More info <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
@@ -495,7 +495,7 @@
 
 @stop
 
-@section('css')
+{{-- @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
@@ -503,4 +503,4 @@
     <script>
         console.log('Hi!');
     </script>
-@stop
+@stop --}}
