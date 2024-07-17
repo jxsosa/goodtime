@@ -10,12 +10,12 @@
     <a href="{{ route('admin.cliente.estado_cuenta', ['cliente' => $id]) }}" target="_blank" class="btn btn-sm btn-outline-danger">
         <i class="glyphicon glyphicon-file"></i>PDF</a>
 
-    <form class="d-inline p-3" action="{{route('admin.cliente.destroy', [
+    {{-- <form class="d-inline p-3" action="{{route('admin.cliente.destroy', [
         'cliente'=>$id,
         ])}}" method="POST">
         @csrf
         @method('delete')
         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>                                
-    </form>
+    </form> --}}
 
 </div>

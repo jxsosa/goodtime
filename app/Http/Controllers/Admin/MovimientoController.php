@@ -189,7 +189,7 @@ class MovimientoController extends Controller
         $cambio = $request->input('cambio_id');
         $FechaEntrega = null;
         $user = $request->input('user_id');
-        $cliente = 6;
+        $cliente = 128;//otros
         $request->merge(['monto' => $montoFormateado]);
         
         if ($request->has('cuenta_id2')) {

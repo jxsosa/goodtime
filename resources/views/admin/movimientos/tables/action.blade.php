@@ -7,12 +7,12 @@
         'movimiento'=>$id,
     ])}}" class="btn btn-primary btn-sm">Editar</a>
 
-    <form class="d-inline p-3" action="{{route('admin.movimientos.destroy', [
+    {{-- <form class="d-inline p-3" action="{{route('admin.movimientos.destroy', [
         'movimiento'=>$id,
         ])}}" method="POST">
         @csrf
         @method('delete')
         <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>                                
-    </form>
+    </form> --}}
 
 </div>
