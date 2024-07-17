@@ -74,7 +74,7 @@
             <tr>
                 <th>Fecha</th>
                 <th>Descripción</th>
-                <th>Cuenta</th>
+                {{-- <th>Cuenta</th> --}}
                 <th>BS</th>
                 <th>TASA</th>
                 <th>Monto</th>
@@ -86,7 +86,7 @@
                 <tr>
                     <td class="small"><small>{{ $movimiento->created_at->format('d/m/y h:m') }}</small></td>
                     <td class="small"><small>{{ $movimiento->descripcion }}</small></td>
-                    <td class="small"><small>{{ $movimiento->cuenta->nombre }}</small></td>
+                    {{-- <td class="small"><small>{{ $movimiento->cuenta->nombre }}</small></td> --}}
                     <td class="text-center"><small>{{ number_format($movimiento->bs, 2, '.', ',') }}</small></td>
                     <td class="text-center"><small>{{ number_format($movimiento->tasa, 2, '.', ',') }}</small></td>
                     <td class="text-center">
